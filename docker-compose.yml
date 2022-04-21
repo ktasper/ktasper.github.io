@@ -1,0 +1,8 @@
+services:
+  hugoserver:
+    build:
+      context: .
+    volumes:
+      - .:/app
+    ports:
+      - 14232:1313
