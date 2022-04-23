@@ -1,7 +1,7 @@
-baseURL = "https://hugodoit.pages.dev"
+baseURL = "https://tech.ktasper.com"
 defaultContentLanguage = "en"
 theme = "DoIt"
-title = "DoIt"
+title = "Ktasper Tech"
 enableRobotsTXT = true
 enableGitInfo = false
 enableEmoji = true
@@ -67,7 +67,7 @@ enableEmoji = true
         pre = "<i class='fab fa-github fa-fw'></i>"
         post = ""
         name = ""
-        url = "https://github.com/HEIGE-PCloud/DoIt"
+        url = "https://github.com/ktasper"
         title = "GitHub"
         weight = 6
     [languages.en.params]
@@ -129,7 +129,7 @@ enableEmoji = true
           # title shown in home page (HTML format is supported)
           title = ""
           # subtitle shown in home page
-          subtitle = "A Clean, Elegant but Advanced Hugo Theme"
+          subtitle = "Ramblings of a DevOps engineer"
           # whether to use typeit animation for subtitle
           typeit = true
           # whether to show social links
@@ -211,8 +211,8 @@ enableEmoji = true
         Ko-Fi = ""
         BuyMeACoffee = ""
         Linktree = ""
-        Email = "xxxx@xxxx.com"
-        RSS = true
+        Email = ""
+        RSS = false
       # Sponsor config
       [languages.en.params.sponsor]
         enable = false
@@ -256,7 +256,7 @@ enableEmoji = true
     mobileMode = "auto"
     # theme change mode ("switch", "select")
     # 主题切换模式 ("switch", "select")
-    themeChangeMode = "select"
+    themeChangeMode = "switch"
     # Header title config
     # 页面头部导航栏标题配置
     [params.header.title]
@@ -321,8 +321,8 @@ enableEmoji = true
     # recently updated posts settings
     # 最近更新文章设置
     [params.section.recentlyUpdated]
-      enable = true
-      rss = true
+      enable = false
+      rss = false
       days = 30
       maxCount = 10
 
@@ -470,23 +470,23 @@ enableEmoji = true
     [params.page.share]
       enable = true
       Twitter = true
-      Facebook = true
-      Linkedin = false
+      Facebook = false
+      Linkedin = true
       Whatsapp = false
       Pinterest = false
       Tumblr = false
       HackerNews = true
-      Reddit = false
+      Reddit = true
       VK = false
       Buffer = false
       Xing = false
-      Line = true
+      Line = false
       Instapaper = false
       Pocket = false
       Digg = false
       Stumbleupon = false
       Flipboard = false
-      Weibo = true
+      Weibo = false
       Renren = false
       Myspace = false
       Blogger = false
@@ -496,11 +496,11 @@ enableEmoji = true
       Skype = false
       Trello = false
       Mix = false
-      Telegram = true
+      Telegram = false
     # Comment config
     # 评论系统设置
     [params.page.comment]
-      enable = true
+      enable = false
       # Disqus comment config (https://disqus.com/)
       # Disqus 评论系统设置 (https://disqus.com/)
       [params.page.comment.disqus]
