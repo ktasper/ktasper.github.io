@@ -1,5 +1,5 @@
 # Stable Slim
-FROM debian@sha256:1086096bcb743c4d04ad1edc0fe729fe536442049d76894172c8ed1fdbb4a48b
+FROM debian:latest
 
 ENV HUGO_VERSION 0.97.3
 

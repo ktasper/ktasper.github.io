@@ -242,7 +242,7 @@ enableEmoji = true
   enablePWA = true
   # license information
   # 许可协议信息 (支持 HTML 格式)
-  license = '<a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a>'
+  #license = '<a rel="license external nofollow noopener noreffer" href="https://creativecommons.org/licenses/by-nc/4.0/" target="_blank">CC BY-NC 4.0</a>'
   # [Experimental] Bundle js
   bundle = false
   # Header config
@@ -271,7 +271,7 @@ enableEmoji = true
       pre = "<i class='fas fa-laptop'></i>"
       # you can add extra information after the name (HTML format is supported), such as icons
       # 你可以在名称 (允许 HTML 格式) 之后添加其他信息, 例如图标
-      post = ""
+      post = ""  
       # whether to use typeit animation for title name
       # 是否为标题显示打字机动画
       typeit = true
@@ -697,7 +697,7 @@ enableEmoji = true
   # Site verification code for Google/Bing/Yandex/Pinterest/Baidu
   # 网站验证代码，用于 Google/Bing/Yandex/Pinterest/Baidu
   [params.verification]
-    google = "MQ8DNu27ayX6B_4ObiEDK09vGr1fdy7kOAnbd09hJk4"
+    google = ""
     bing = ""
     yandex = ""
     pinterest = ""
