@@ -1,4 +1,4 @@
-FROM golang:1.17 as builder
+FROM golang:1.18 as builder
 ARG HUGO_VERSION=v0.97.3
 RUN git clone https://github.com/gohugoio/hugo.git /go/src/hugo
 WORKDIR /go/src/hugo
