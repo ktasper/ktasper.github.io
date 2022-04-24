@@ -33,7 +33,7 @@ echo "Hello World"
 Write-Host "Hello World"
 ```
 
-# C++
+## C++
 ```cpp
 #include <iostream>
 
