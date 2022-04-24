@@ -233,7 +233,7 @@ enableEmoji = true
   fingerprint = ""
   # date format
   # 日期格式
-  dateFormat = "2006-01-02"
+  dateFormat = "02-01-2006"
   # website images for Open Graph and Twitter Cards
   # 网站图片, 用于 Open Graph 和 Twitter Cards
   images = ["/images/avatar.png"]
@@ -314,7 +314,7 @@ enableEmoji = true
     paginate = 20
     # date format (month and day)
     # 日期格式 (月和日)
-    dateFormat = "02-01"
+    dateFormat = "01-02"
     # amount of RSS pages
     # RSS 文章数目
     rss = 10
