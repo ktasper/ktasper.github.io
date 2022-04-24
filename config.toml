@@ -1,4 +1,4 @@
-baseURL = "https://tech.ktasper.com"
+baseURL = "https://blog.ktasper.com"
 defaultContentLanguage = "en"
 theme = "DoIt"
 title = "Ktasper Tech"
