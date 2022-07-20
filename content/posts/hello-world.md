@@ -32,13 +32,3 @@ echo "Hello World"
 ```powershell
 Write-Host "Hello World"
 ```
-
-## C++
-```cpp
-#include <iostream>
-
-int main() {
-    std::cout << "Hello World!";
-    return 0;
-}
-```
