@@ -1,0 +1,629 @@
+<!doctype html><html lang=en>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<meta name=robots content="noodp">
+<title class=pjax-title>How to Create a Python CLI Package In 2022 - Ktasper Tech</title><meta name=Description content="The official documentation for the Hugo DoIt theme"><meta property="og:title" content="How to Create a Python CLI Package In 2022">
+<meta property="og:description" content="As a DevOps Engineer, I like being able to create quick and simple CLI&rsquo;s to automate toil.
+After lots of playing around with python dependency management, cli library&rsquo;s I think I have found a nice combination. This is the stack:
+ click The cli library poetry The dependency management pytest who does not love writing tests precommit - Sane checking before we commit  PoetryI have used lots of dependency managers in my time, and I have recently started to use poetry and it takes all the hassle out of everything.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://blog.ktasper.com/click_project_setup/"><meta property="og:image" content="https://blog.ktasper.com/images/avatar.png"><meta property="article:section" content="posts">
+<meta property="article:published_time" content="2022-08-02T10:19:32+01:00">
+<meta property="article:modified_time" content="2022-08-02T10:19:32+01:00"><meta property="og:site_name" content="Hugo DoIt Theme Documentation">
+<meta name=twitter:card content="summary_large_image">
+<meta name=twitter:image content="https://blog.ktasper.com/images/avatar.png">
+<meta name=twitter:title content="How to Create a Python CLI Package In 2022">
+<meta name=twitter:description content="As a DevOps Engineer, I like being able to create quick and simple CLI&rsquo;s to automate toil.
+After lots of playing around with python dependency management, cli library&rsquo;s I think I have found a nice combination. This is the stack:
+ click The cli library poetry The dependency management pytest who does not love writing tests precommit - Sane checking before we commit  PoetryI have used lots of dependency managers in my time, and I have recently started to use poetry and it takes all the hassle out of everything.">
+<meta name=application-name content="Ktasper Tech">
+<meta name=apple-mobile-web-app-title content="Ktasper Tech">
+<meta name=theme-color content="#f8f8f8"><meta name=msapplication-TileColor content="#da532c"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico>
+<link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png>
+<link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=manifest href=/site.webmanifest><link rel=canonical href=https://blog.ktasper.com/click_project_setup/><link rel=prev href=https://blog.ktasper.com/hello-world/><link rel=stylesheet href=/lib/normalize/normalize.min.css><link rel=stylesheet href=/css/style.min.css><link rel=preload as=style onload="this.onload=null,this.rel='stylesheet'" href=/lib/fontawesome-free/all.min.css>
+<noscript><link rel=stylesheet href=/lib/fontawesome-free/all.min.css></noscript><link rel=preload as=style onload="this.onload=null,this.rel='stylesheet'" href=/lib/animate/animate.min.css>
+<noscript><link rel=stylesheet href=/lib/animate/animate.min.css></noscript>
+<script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"How to Create a Python CLI Package In 2022","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/blog.ktasper.com\/click_project_setup\/"},"image":["https:\/\/blog.ktasper.com\/images\/Apple-Devices-Preview.png"],"genre":"posts","keywords":"click, poetry","wordcount":905,"url":"https:\/\/blog.ktasper.com\/click_project_setup\/","datePublished":"2022-08-02T10:19:32+01:00","dateModified":"2022-08-02T10:19:32+01:00","license":"This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher":{"@type":"Organization","name":"xxxx","logo":"https:\/\/blog.ktasper.com\/images\/avatar.png"},"author":{"@type":"Person","name":"Ktasper"},"description":""}</script></head>
+<body header-desktop=auto header-mobile=auto><script type=text/javascript>function setTheme(a){document.body.setAttribute('theme',a),document.documentElement.style.setProperty('color-scheme',a==='light'?'light':'dark')}function saveTheme(a){window.localStorage&&localStorage.setItem('theme',a)}function getMeta(b){const a=document.getElementsByTagName('meta');for(let c=0;c<a.length;c++)if(a[c].getAttribute('name')===b)return a[c];return''}if(window.localStorage&&localStorage.getItem('theme')){let a=localStorage.getItem('theme');a==='light'||a==='dark'||a==='black'?setTheme(a):window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?setTheme('dark'):setTheme('light')}else'black'==='light'||'black'==='dark'||'black'==='black'?(setTheme('black'),saveTheme('black')):(saveTheme('auto'),window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?setTheme('dark'):setTheme('light'));let metaColors={light:'#f8f8f8',dark:'#252627',black:'#000000'};getMeta('theme-color').content=metaColors[document.body.getAttribute('theme')]</script>
+<div id=back-to-top></div>
+<div id=mask></div><div class=wrapper><header class=desktop id=header-desktop>
+<div class=header-wrapper>
+<div class=header-title>
+<a href=/ title="Ktasper Tech"><span class=header-title-pre><i class="fas fa-laptop"></i></span><span id=desktop-header-typeit class=typeit></span></a>
+</div>
+<div class=menu>
+<div class=menu-inner><a class=menu-item href=/posts/> Posts </a><a class=menu-item href=/tags/> Tags </a><a class=menu-item href=/categories/> Categories </a><a class=menu-item href=/series/> Series </a><a class=menu-item href=/about/> About </a><a class=menu-item href=https://github.com/ktasper title=GitHub rel="noopener noreffer" target=_blank><i class="fab fa-github fa-fw"></i> </a><span class="menu-item delimiter"></span><span class="menu-item search" id=search-desktop>
+<input type=text placeholder="Search titles or contents..." id=search-input-desktop>
+<a href=# onclick=return!1 class="search-button search-toggle" id=search-toggle-desktop title=Search>
+<i class="fas fa-search fa-fw"></i>
+</a>
+<a href=# onclick=return!1 class="search-button search-clear" id=search-clear-desktop title=Clear>
+<i class="fas fa-times-circle fa-fw"></i>
+</a>
+<span class="search-button search-loading" id=search-loading-desktop>
+<i class="fas fa-spinner fa-fw fa-spin"></i>
+</span>
+</span><a href=# onclick=return!1 class="menu-item theme-switch" title="Switch Theme">
+<i class="fas fa-adjust fa-fw"></i>
+</a></div>
+</div>
+</div>
+</header><header class=mobile id=header-mobile>
+<div class=header-container>
+<div class=header-wrapper>
+<div class=header-title>
+<a href=/ title="Ktasper Tech"><span class=header-title-pre><i class="fas fa-laptop"></i></span><span id=mobile-header-typeit class=typeit></span></a>
+</div>
+<div class=menu-toggle id=menu-toggle-mobile>
+<span></span><span></span><span></span>
+</div>
+</div>
+<div class=menu id=menu-mobile><div class=search-wrapper>
+<div class="search mobile" id=search-mobile>
+<input type=text placeholder="Search titles or contents..." id=search-input-mobile>
+<a href=# onclick=return!1 class="search-button search-toggle" id=search-toggle-mobile title=Search>
+<i class="fas fa-search fa-fw"></i>
+</a>
+<a href=# onclick=return!1 class="search-button search-clear" id=search-clear-mobile title=Clear>
+<i class="fas fa-times-circle fa-fw"></i>
+</a>
+<span class="search-button search-loading" id=search-loading-mobile>
+<i class="fas fa-spinner fa-fw fa-spin"></i>
+</span>
+</div>
+<a href=# onclick=return!1 class=search-cancel id=search-cancel-mobile>
+Cancel
+</a>
+</div><a class=menu-item href=/posts/ title>Posts</a><a class=menu-item href=/tags/ title>Tags</a><a class=menu-item href=/categories/ title>Categories</a><a class=menu-item href=/series/ title>Series</a><a class=menu-item href=/about/ title>About</a><a class=menu-item href=https://github.com/ktasper title=GitHub rel="noopener noreffer" target=_blank><i class="fab fa-github fa-fw"></i></a><a href=# onclick=return!1 class="menu-item theme-switch" title="Switch Theme">
+<i class="fas fa-adjust fa-fw"></i>
+</a></div>
+</div>
+</header>
+<div class="search-dropdown desktop">
+<div id=search-dropdown-desktop></div>
+</div>
+<div class="search-dropdown mobile">
+<div id=search-dropdown-mobile></div>
+</div>
+<main class=main>
+<div class=container><div class=toc id=toc-auto>
+<h2 class=toc-title>Contents</h2>
+<div class=toc-content id=toc-content-auto><nav id=TableOfContents>
+<ul>
+<li><a href=#poetry>Poetry</a></li>
+<li><a href=#starting-a-project>Starting A Project</a>
+<ul>
+<li><a href=#adding-dependencies>Adding Dependencies</a></li>
+<li><a href=#adding-an-entry-point>Adding an Entry Point</a></li>
+<li><a href=#adding-the-code>Adding the code</a></li>
+</ul>
+</li>
+<li><a href=#running-the-script>Running the script</a></li>
+<li><a href=#saving-to-git>Saving to Git</a>
+<ul>
+<li><a href=#pre-commit-hooks>Pre-commit Hooks</a></li>
+</ul>
+</li>
+<li><a href=#uploading-the-package>Uploading the package</a>
+<ul>
+<li><a href=#testing-upload>Testing Upload</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>
+<ul>
+<li><a href=#real-upload>Real Upload</a></li>
+</ul>
+</li>
+</ul>
+</nav></div>
+</div><script>document.getElementsByTagName("main")[0].setAttribute("pageStyle","normal")</script><script>document.getElementsByTagName("main")[0].setAttribute("autoTOC","true")</script><article class="page single"><h1 class="single-title animate__animated animate__flipInX">How to Create a Python CLI Package In 2022</h1><div class=post-meta>
+<div class=post-meta-line>
+<span class=post-author><i class="author fas fa-user-circle fa-fw"></i><a href=https://github.com/ktasper title=Author target=_blank rel="noopener noreffer author" class=author>Ktasper</a>
+</span></div>
+<div class=post-meta-line><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime=02-08-2022>02-08-2022</time>&nbsp;<i class="far fa-edit fa-fw"></i>&nbsp;<time datetime=02-08-2022>02-08-2022</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;905 words&nbsp;
+<i class="far fa-clock fa-fw"></i>&nbsp;5 minutes&nbsp;</div>
+</div><div class="details toc" id=toc-static kept>
+<div class="details-summary toc-title">
+<span>Contents</span>
+<span><i class="details-icon fas fa-angle-right"></i></span>
+</div>
+<div class="details-content toc-content" id=toc-content-static><nav id=TableOfContents>
+<ul>
+<li><a href=#poetry>Poetry</a></li>
+<li><a href=#starting-a-project>Starting A Project</a>
+<ul>
+<li><a href=#adding-dependencies>Adding Dependencies</a></li>
+<li><a href=#adding-an-entry-point>Adding an Entry Point</a></li>
+<li><a href=#adding-the-code>Adding the code</a></li>
+</ul>
+</li>
+<li><a href=#running-the-script>Running the script</a></li>
+<li><a href=#saving-to-git>Saving to Git</a>
+<ul>
+<li><a href=#pre-commit-hooks>Pre-commit Hooks</a></li>
+</ul>
+</li>
+<li><a href=#uploading-the-package>Uploading the package</a>
+<ul>
+<li><a href=#testing-upload>Testing Upload</a></li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>
+<ul>
+<li><a href=#real-upload>Real Upload</a></li>
+</ul>
+</li>
+</ul>
+</nav></div>
+</div><div class=content id=content><p>As a DevOps Engineer, I like being able to create quick and simple CLI&rsquo;s to automate toil.</p>
+<p>After lots of playing around with python dependency management, cli library&rsquo;s I think I have found a nice combination.
+This is the stack:</p>
+<ul>
+<li><code>click</code> The cli library</li>
+<li><code>poetry</code> The dependency management</li>
+<li><code>pytest</code> who does not love writing tests</li>
+<li><code>precommit</code> - Sane checking before we commit</li>
+</ul>
+<h2 id=poetry class=headerLink>
+<a href=#poetry class=header-mark></a>Poetry</h2><p>I have used lots of dependency managers in my time, and I have recently started to use <code>poetry</code> and it takes all
+the hassle out of everything.</p>
+<p>To install it <a href=https://python-poetry.org/docs/master/#installing-with-the-official-installer target=_blank rel="noopener noreffer">go here</a> and run the command.</p>
+<h2 id=starting-a-project class=headerLink>
+<a href=#starting-a-project class=header-mark></a>Starting A Project</h2><p>Now we have <code>poetry</code> installed we can create the base for our project:</p>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>poetry new --name hello --src helloworld
+</code></pre></td></tr></table>
+</div>
+</div><p>This will create a <code>helloworld</code> dir, with the following contents:</p>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>helloworld
+├── README.rst
+├── pyproject.toml
+├── src
+│   └── hello
+│       └── __init__.py
+└── tests
+    ├── __init__.py
+    └── test_hello.py
+</code></pre></td></tr></table>
+</div>
+</div><h3 id=adding-dependencies class=headerLink>
+<a href=#adding-dependencies class=header-mark></a>Adding Dependencies</h3><p>Since we know we are going to be using <code>click</code> & lets tell <code>poetry</code> to
+add it:</p>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash><span class=nb>cd</span> helloworld
+poetry add click
+</code></pre></td></tr></table>
+</div>
+</div><h3 id=adding-an-entry-point class=headerLink>
+<a href=#adding-an-entry-point class=header-mark></a>Adding an Entry Point</h3><p>Back in the day we would use a <code>setup.py</code> file to do this, but again <code>poetry</code>
+does all the hard work for us. We need to add a <code>tool.poetry.scripts</code> setting to our
+<code>pyproject.toml</code></p>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback>[tool.poetry.scripts]
+hello = &#34;src.hello.main:cli&#34;
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li><code>hello</code> = The name of the cli when we run it.</li>
+<li><code>src.hello.</code> = The name of the package</li>
+<li><code>main</code> = The name of the module</li>
+<li><code>cli</code> = The name of the function</li>
+</ul>
+<h3 id=adding-the-code class=headerLink>
+<a href=#adding-the-code class=header-mark></a>Adding the code</h3><p>Since we do not have any of the code needed above, <code>poetry</code> cannot / will not run our cli. Lets fix that,
+add the following code to <code>src/hello/main.py</code></p>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span><span class=lnt>48
+</span><span class=lnt>49
+</span><span class=lnt>50
+</span><span class=lnt>51
+</span><span class=lnt>52
+</span><span class=lnt>53
+</span><span class=lnt>54
+</span><span class=lnt>55
+</span><span class=lnt>56
+</span><span class=lnt>57
+</span><span class=lnt>58
+</span><span class=lnt>59
+</span><span class=lnt>60
+</span><span class=lnt>61
+</span><span class=lnt>62
+</span><span class=lnt>63
+</span><span class=lnt>64
+</span><span class=lnt>65
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-python data-lang=python><span class=kn>import</span> <span class=nn>click</span>
+<span class=kn>import</span> <span class=nn>logging</span>
+
+<span class=n>LOGGING_LEVELS</span> <span class=o>=</span> <span class=p>{</span>
+    <span class=mi>0</span><span class=p>:</span> <span class=n>logging</span><span class=o>.</span><span class=n>NOTSET</span><span class=p>,</span>
+    <span class=mi>1</span><span class=p>:</span> <span class=n>logging</span><span class=o>.</span><span class=n>ERROR</span><span class=p>,</span>
+    <span class=mi>2</span><span class=p>:</span> <span class=n>logging</span><span class=o>.</span><span class=n>WARN</span><span class=p>,</span>
+    <span class=mi>3</span><span class=p>:</span> <span class=n>logging</span><span class=o>.</span><span class=n>INFO</span><span class=p>,</span>
+    <span class=mi>4</span><span class=p>:</span> <span class=n>logging</span><span class=o>.</span><span class=n>DEBUG</span><span class=p>,</span>
+<span class=p>}</span>  <span class=c1>#: a mapping of `verbose` option counts to logging levels</span>
+
+
+<span class=c1># Create the config object</span>
+<span class=k>class</span> <span class=nc>Config</span><span class=p>(</span><span class=nb>object</span><span class=p>):</span>
+    <span class=k>def</span> <span class=fm>__init__</span><span class=p>(</span><span class=bp>self</span><span class=p>)</span> <span class=o>-&gt;</span> <span class=kc>None</span><span class=p>:</span>
+        <span class=bp>self</span><span class=o>.</span><span class=n>verbose</span><span class=p>:</span> <span class=nb>int</span> <span class=o>=</span> <span class=mi>0</span>
+
+<span class=c1># Create the decorator to pass the config object down</span>
+<span class=n>pass_config</span> <span class=o>=</span> <span class=n>click</span><span class=o>.</span><span class=n>make_pass_decorator</span><span class=p>(</span><span class=n>Config</span><span class=p>,</span> <span class=n>ensure</span><span class=o>=</span><span class=kc>True</span><span class=p>)</span>
+
+
+<span class=nd>@click</span><span class=o>.</span><span class=n>group</span><span class=p>()</span>
+<span class=nd>@click</span><span class=o>.</span><span class=n>option</span><span class=p>(</span><span class=s2>&#34;--verbose&#34;</span><span class=p>,</span> <span class=s2>&#34;-v&#34;</span><span class=p>,</span> <span class=n>count</span><span class=o>=</span><span class=kc>True</span><span class=p>,</span> <span class=n>help</span><span class=o>=</span><span class=s2>&#34;Enable verbose output, (up to -vvvv)&#34;</span><span class=p>)</span>
+<span class=nd>@pass_config</span>
+<span class=k>def</span> <span class=nf>cli</span><span class=p>(</span><span class=n>config</span><span class=p>,</span> <span class=n>verbose</span><span class=p>):</span>
+    <span class=s2>&#34;&#34;&#34;Run the cli &#34;&#34;&#34;</span>
+    <span class=c1># Use the verbosity count to determine the logging level...</span>
+    <span class=k>if</span> <span class=n>verbose</span> <span class=o>&gt;</span> <span class=mi>0</span><span class=p>:</span>
+        <span class=n>logging</span><span class=o>.</span><span class=n>basicConfig</span><span class=p>(</span>
+            <span class=n>level</span><span class=o>=</span><span class=n>LOGGING_LEVELS</span><span class=p>[</span><span class=n>verbose</span><span class=p>]</span>
+            <span class=k>if</span> <span class=n>verbose</span> <span class=ow>in</span> <span class=n>LOGGING_LEVELS</span>
+            <span class=k>else</span> <span class=n>logging</span><span class=o>.</span><span class=n>DEBUG</span>
+        <span class=p>)</span>
+        <span class=n>click</span><span class=o>.</span><span class=n>echo</span><span class=p>(</span>
+            <span class=n>click</span><span class=o>.</span><span class=n>style</span><span class=p>(</span>
+                <span class=sa>f</span><span class=s2>&#34;Verbose logging is enabled. &#34;</span>
+                <span class=sa>f</span><span class=s2>&#34;(LEVEL=</span><span class=si>{</span><span class=n>logging</span><span class=o>.</span><span class=n>getLogger</span><span class=p>()</span><span class=o>.</span><span class=n>getEffectiveLevel</span><span class=p>()</span><span class=si>}</span><span class=s2>)&#34;</span><span class=p>,</span>
+                <span class=n>fg</span><span class=o>=</span><span class=s2>&#34;yellow&#34;</span><span class=p>,</span>
+            <span class=p>)</span>
+        <span class=p>)</span>
+    <span class=n>config</span><span class=o>.</span><span class=n>verbose</span> <span class=o>=</span> <span class=n>verbose</span>
+
+<span class=nd>@cli</span><span class=o>.</span><span class=n>command</span><span class=p>()</span>
+<span class=nd>@click</span><span class=o>.</span><span class=n>option</span><span class=p>(</span><span class=s2>&#34;--string&#34;</span><span class=p>,</span> <span class=n>default</span><span class=o>=</span><span class=s2>&#34;World&#34;</span><span class=p>,</span> <span class=n>help</span><span class=o>=</span><span class=s2>&#34;The name you wish to greet&#34;</span><span class=p>)</span>
+<span class=nd>@click</span><span class=o>.</span><span class=n>option</span><span class=p>(</span><span class=s2>&#34;--repeat&#34;</span><span class=p>,</span> <span class=n>default</span><span class=o>=</span><span class=mi>1</span><span class=p>,</span> <span class=n>help</span><span class=o>=</span><span class=s2>&#34;The times you wish to say the greeting&#34;</span><span class=p>)</span>
+<span class=nd>@click</span><span class=o>.</span><span class=n>argument</span><span class=p>(</span><span class=s1>&#39;out&#39;</span><span class=p>,</span> <span class=nb>type</span><span class=o>=</span><span class=n>click</span><span class=o>.</span><span class=n>File</span><span class=p>(</span><span class=s1>&#39;w&#39;</span><span class=p>),</span> <span class=n>default</span><span class=o>=</span><span class=s1>&#39;-&#39;</span><span class=p>,</span> <span class=n>required</span><span class=o>=</span><span class=kc>False</span><span class=p>)</span>
+<span class=nd>@pass_config</span>
+<span class=k>def</span> <span class=nf>say</span><span class=p>(</span><span class=n>config</span><span class=p>,</span> <span class=n>string</span><span class=p>,</span> <span class=n>repeat</span><span class=p>,</span> <span class=n>out</span><span class=p>):</span>
+    <span class=s2>&#34;&#34;&#34;
+</span><span class=s2>    This greets you.
+</span><span class=s2>    Args:
+</span><span class=s2>    out - This defaults to STDOUT, if given a file will write the greeting to
+</span><span class=s2>    that file instead
+</span><span class=s2>    &#34;&#34;&#34;</span>
+    <span class=k>if</span> <span class=n>config</span><span class=o>.</span><span class=n>verbose</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=mi>1</span><span class=p>,</span> <span class=mi>5</span><span class=p>):</span>
+        <span class=n>click</span><span class=o>.</span><span class=n>echo</span><span class=p>(</span><span class=s2>&#34;ERROR LEVEL&#34;</span><span class=p>)</span>
+    <span class=k>if</span> <span class=n>config</span><span class=o>.</span><span class=n>verbose</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=mi>2</span><span class=p>,</span> <span class=mi>5</span><span class=p>):</span>
+        <span class=n>click</span><span class=o>.</span><span class=n>echo</span><span class=p>(</span><span class=s2>&#34;WARN LEVEL&#34;</span><span class=p>)</span>
+    <span class=k>if</span> <span class=n>config</span><span class=o>.</span><span class=n>verbose</span> <span class=o>==</span> <span class=mi>4</span><span class=p>:</span>
+        <span class=n>click</span><span class=o>.</span><span class=n>echo</span><span class=p>(</span><span class=s2>&#34;DEBUG LEVEL&#34;</span><span class=p>)</span>
+    <span class=k>for</span> <span class=n>_</span> <span class=ow>in</span> <span class=nb>range</span><span class=p>(</span><span class=n>repeat</span><span class=p>):</span>
+        <span class=n>click</span><span class=o>.</span><span class=n>echo</span><span class=p>(</span><span class=sa>f</span><span class=s2>&#34;Hello </span><span class=si>{</span><span class=n>string</span><span class=si>}</span><span class=s2>!&#34;</span><span class=p>,</span> <span class=n>file</span><span class=o>=</span><span class=n>out</span><span class=p>)</span>
+
+<span class=k>if</span> <span class=vm>__name__</span> <span class=o>==</span> <span class=s1>&#39;__main__&#39;</span><span class=p>:</span>
+    <span class=n>cli</span><span class=p>()</span>
+</code></pre></td></tr></table>
+</div>
+</div><h2 id=running-the-script class=headerLink>
+<a href=#running-the-script class=header-mark></a>Running the script</h2><p>Now if we run <code>poetry run hello</code> we should see this:</p>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback>Usage: hello [OPTIONS] COMMAND [ARGS]...
+
+  Run the cli
+
+Options:
+  -v, --verbose  Enable verbose output
+  --help         Show this message and exit.
+
+Commands:
+  say  This greets you.
+</code></pre></td></tr></table>
+</div>
+</div><p>Or this <code>poetry run hello say --string foo --repeat 4</code>:</p>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback>Hello foo!
+Hello foo!
+Hello foo!
+Hello foo!
+</code></pre></td></tr></table>
+</div>
+</div><h2 id=saving-to-git class=headerLink>
+<a href=#saving-to-git class=header-mark></a>Saving to Git</h2><p>Now that we have the boiler plate setup, its a good time to commit to git.</p>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback>git init
+git add *
+git commit -m &#34;First commit&#34;
+git branch -M main
+git remote add origin &lt;your git url&gt;
+git push -u origin main
+</code></pre></td></tr></table>
+</div>
+</div><h3 id=pre-commit-hooks class=headerLink>
+<a href=#pre-commit-hooks class=header-mark></a>Pre-commit Hooks</h3><p>Add it as a dependency:</p>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>poetry add pre-commit
+</code></pre></td></tr></table>
+</div>
+</div><p>Don&rsquo;t forget to update git!</p>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback>git add poetry.lock pyproject.toml
+git commit -m &#34;Add pre-commit dependency.&#34;
+</code></pre></td></tr></table>
+</div>
+</div><p>This is my basic <code>.pre-commit-config.yaml</code> file:</p>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=nt>repos</span><span class=p>:</span><span class=w>
+</span><span class=w>    </span>- <span class=nt>repo</span><span class=p>:</span><span class=w> </span><span class=l>https://github.com/psf/black</span><span class=w>
+</span><span class=w>      </span><span class=nt>rev</span><span class=p>:</span><span class=w> </span><span class=m>19.</span><span class=l>10b0</span><span class=w>
+</span><span class=w>      </span><span class=nt>hooks</span><span class=p>:</span><span class=w>
+</span><span class=w>        </span>- <span class=nt>id</span><span class=p>:</span><span class=w> </span><span class=l>black</span><span class=w>
+</span><span class=w>    </span>- <span class=nt>repo</span><span class=p>:</span><span class=w> </span><span class=l>https://github.com/pre-commit/pre-commit-hooks</span><span class=w>
+</span><span class=w>      </span><span class=nt>rev</span><span class=p>:</span><span class=w> </span><span class=l>v2.5.0</span><span class=w>
+</span><span class=w>      </span><span class=nt>hooks</span><span class=p>:</span><span class=w>
+</span><span class=w>        </span>- <span class=nt>id</span><span class=p>:</span><span class=w> </span><span class=l>check-added-large-files</span><span class=w>
+</span><span class=w>    </span>- <span class=nt>repo</span><span class=p>:</span><span class=w> </span><span class=l>local</span><span class=w>
+</span><span class=w>      </span><span class=nt>hooks</span><span class=p>:</span><span class=w>
+</span><span class=w>        </span>- <span class=nt>id</span><span class=p>:</span><span class=w> </span><span class=l>pylint</span><span class=w>
+</span><span class=w>          </span><span class=nt>name</span><span class=p>:</span><span class=w> </span><span class=l>pylint</span><span class=w>
+</span><span class=w>          </span><span class=nt>entry</span><span class=p>:</span><span class=w> </span><span class=l>poetry run pylint src/</span><span class=w>
+</span><span class=w>          </span><span class=nt>language</span><span class=p>:</span><span class=w> </span><span class=l>system</span><span class=w>
+</span><span class=w>          </span><span class=nt>always_run</span><span class=p>:</span><span class=w> </span><span class=kc>true</span><span class=w>
+</span><span class=w>          </span><span class=nt>pass_filenames</span><span class=p>:</span><span class=w> </span><span class=kc>false</span><span class=w>
+</span></code></pre></td></tr></table>
+</div>
+</div><p>We need to init the hooks:</p>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback>poetry run pre-commit install
+</code></pre></td></tr></table>
+</div>
+</div><p>Once we have init&rsquo;d the pre-commit hooks will run when we commit code.
+<a href=https://pre-commit.com/ target=_blank rel="noopener noreffer">For more info on pre-commit click here</a></p>
+<h2 id=uploading-the-package class=headerLink>
+<a href=#uploading-the-package class=header-mark></a>Uploading the package</h2><p>Lets say you have built your cli tool and want to upload it to <a href=https://pypi.org/ target=_blank rel="noopener noreffer">PyPi</a>!</p>
+<p>We should really test it before pushing to the prod <a href=https://pypi.org/ target=_blank rel="noopener noreffer">PyPi</a> right?</p>
+<h3 id=testing-upload class=headerLink>
+<a href=#testing-upload class=header-mark></a>Testing Upload</h3><p>First lets configure <code>poetry</code> so its aware of the test PyPi repo:</p>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback>poetry config repositories.testpypi https://test.pypi.org/legacy/
+</code></pre></td></tr></table>
+</div>
+</div><p>Create an account on <a href=https://test.pypi.org/ target=_blank rel="noopener noreffer">TestPyPI</a> and then create a new API key under your account settings.</p>
+<p>Once you have the key:</p>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-bash data-lang=bash>poetry config http-basic.testpypi __token__ &lt;API KEY&gt;
+</code></pre></td></tr></table>
+</div>
+</div><p>To upload you run:</p>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback>poetry build
+poetry publish -r testpypi
+</code></pre></td></tr></table>
+</div>
+</div><div class="details admonition tip open">
+<div class="details-summary admonition-title">
+<i class="icon fas fa-lightbulb fa-fw"></i>Tip<i class="details-icon fas fa-angle-right fa-fw"></i>
+</div>
+<div class=details-content>
+<div class=admonition-content>You can add <code>dist</code> to your <code>.gitignore</code> file</div>
+</div>
+</div>
+<h1 id=references class=headerLink>
+<a href=#references class=header-mark></a>References</h1><ul>
+<li><a href=https://mathspp.com/blog/how-to-create-a-python-package-in-2022 target=_blank rel="noopener noreffer">How to create a Python package in 2022</a> - Rodrigo Girão Serrão</li>
+<li><a href=https://dev.to/bowmanjd/build-a-command-line-interface-with-python-poetry-and-click-1f5k target=_blank rel="noopener noreffer">Build and Test a Command Line Interface with Python, Poetry, Click, and pytest </a> - Jonathan Bowman</li>
+</ul>
+<h3 id=real-upload class=headerLink>
+<a href=#real-upload class=header-mark></a>Real Upload</h3><ul>
+<li>Configure PyPI</li>
+</ul>
+<p>Get your API key for <a href=https://pypi.org/ target=_blank rel="noopener noreffer">PyPi</a></p>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback>poetry config pypi-token.pypi &lt;API KEY&gt;
+</code></pre></td></tr></table>
+</div>
+</div><div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback>poetry publish --build
+</code></pre></td></tr></table>
+</div>
+</div></div>
+<div class=post-footer id=post-footer>
+<div class=post-info>
+<div class=post-info-line>
+<div class=post-info-mod>
+<span>Updated on 02-08-2022</span>
+</div>
+<div class=post-info-license></div>
+</div>
+<div class=post-info-line>
+<div class=post-info-md><span><a class=link-to-mardown href=/click_project_setup/index.md target=_blank rel="noopener noreferrer">Read markdown</a>
+</span></div>
+<div class=post-info-share>
+<span><a href=# onclick=return!1 title="Share on Twitter" data-sharer=twitter data-url=https://blog.ktasper.com/click_project_setup/ data-title="How to Create a Python CLI Package In 2022" data-hashtags=click,poetry><i class="fab fa-twitter fa-fw"></i></a><a href=# onclick=return!1 title="Share on Linkedin" data-sharer=linkedin data-url=https://blog.ktasper.com/click_project_setup/><i class="fab fa-linkedin fa-fw"></i></a><a href=# onclick=return!1 title="Share on Hacker News" data-sharer=hackernews data-url=https://blog.ktasper.com/click_project_setup/ data-title="How to Create a Python CLI Package In 2022"><i class="fab fa-hacker-news fa-fw"></i></a><a href=# onclick=return!1 title="Share on Reddit" data-sharer=reddit data-url=https://blog.ktasper.com/click_project_setup/><i class="fab fa-reddit fa-fw"></i></a></span>
+</div>
+</div>
+</div>
+<div class=post-info-more>
+<section class=post-tags><i class="fas fa-tags fa-fw"></i>&nbsp;<a href=/tags/click/>click</a>,&nbsp;<a href=/tags/poetry/>poetry</a></section>
+<section>
+<span><a href=javascript:void(0); onclick=window.history.back()>Back</a></span>&nbsp;|&nbsp;<span><a href=/>Home</a></span>
+</section>
+</div>
+<div class=post-nav><a href=/hello-world/ class=prev rel=prev title="Hello World"><i class="fas fa-angle-left fa-fw"></i>Hello World</a></div>
+</div>
+</article></div>
+</main><footer class=footer>
+<div class=footer-container><div class=footer-line>
+Powered by <a href=https://gohugo.io/ target=_blank rel="noopener noreffer" title="Hugo 0.91.2">Hugo</a>&nbsp;|&nbsp;Theme - <a href=https://github.com/HEIGE-PCloud/DoIt target=_blank rel="noopener noreffer" title="DoIt 0.2.13"><i class="far fa-edit fa-fw"></i> DoIt</a>
+</div><div class=footer-line><i class="far fa-copyright fa-fw"></i><span itemprop=copyrightYear>2022</span><span class=author itemprop=copyrightHolder>&nbsp;<a href=https://github.com/ktasper target=_blank rel="noopener noreferrer">Ktasper</a></span>&nbsp;|&nbsp;<span class=license><a rel="license external nofollow noopener noreffer" href=https://creativecommons.org/licenses/by-nc/4.0/ target=_blank>CC BY-NC 4.0</a></span></div>
+<div class=footer-line></div>
+<div class=footer-line>
+</div>
+</div><script>'serviceWorker'in navigator&&(navigator.serviceWorker.register('/sw.min.js',{scope:'/'}).then(function(a){}),navigator.serviceWorker.ready.then(function(a){}))</script></footer></div>
+<div id=fixed-buttons><a href=#back-to-top id=back-to-top-button class=fixed-button title="Back to Top">
+<i class="fas fa-arrow-up fa-fw"></i>
+</a><a href=# id=view-comments class=fixed-button title="View Comments">
+<i class="fas fa-comment fa-fw"></i>
+</a>
+</div><div class=assets><script type=text/javascript src=/lib/autocomplete/autocomplete.min.js></script><script type=text/javascript src=/lib/fuse/fuse.min.js></script><script type=text/javascript src=/lib/lazysizes/lazysizes.min.js></script><script type=text/javascript src=/lib/tablesort/tablesort.min.js></script><script type=text/javascript src=/lib/topbar/topbar.min.js></script><script type=text/javascript src=/lib/pjax/pjax.min.js></script><script type=text/javascript src=/js/theme.min.js defer></script></div>
+<div class=pjax-assets><script type=text/javascript>window.config={code:{copyTitle:"Copy to clipboard",maxShownLines:10},comment:{},data:{"desktop-header-typeit":"Ktasper Tech","mobile-header-typeit":"Ktasper Tech"},search:{distance:100,findAllMatches:!1,fuseIndexURL:"/index.json",highlightTag:"em",ignoreFieldNorm:!1,ignoreLocation:!0,isCaseSensitive:!1,location:0,maxResultLength:10,minMatchCharLength:2,noResultsFound:"No results found",snippetLength:300,threshold:.1,type:"fuse",useExtendedSearch:!1},sharerjs:!0,table:{sort:!0},typeit:{cursorChar:"|",cursorSpeed:1e3,data:{"desktop-header-typeit":["desktop-header-typeit"],"mobile-header-typeit":["mobile-header-typeit"]},duration:-1,speed:100}}</script><script type=text/javascript src=/lib/clipboard/clipboard.min.js></script><script type=text/javascript src=/lib/sharer/sharer.min.js></script><script type=text/javascript src=/lib/typeit/typeit.min.js></script></div>
+</body>
+</html>
