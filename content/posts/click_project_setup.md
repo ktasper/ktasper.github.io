@@ -59,7 +59,7 @@ Back in the day we would use a `setup.py` file to do this, but again `poetry`
 does all the hard work for us. We need to add a `tool.poetry.scripts` setting to our
 `pyproject.toml`
 
-```
+```toml
 [tool.poetry.scripts]
 hello = "src.hello.main:cli"
 ```
@@ -130,10 +130,6 @@ This is my basic `.pre-commit-config.yaml` file:
 
 ```yaml
 repos:
-    - repo: https://github.com/psf/black
-      rev: 19.10b0
-      hooks:
-        - id: black
     - repo: https://github.com/pre-commit/pre-commit-hooks
       rev: v2.5.0
       hooks:
