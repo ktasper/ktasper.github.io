@@ -61,7 +61,7 @@ does all the hard work for us. We need to add a `tool.poetry.scripts` setting to
 
 ```
 [tool.poetry.scripts]
-hello = "src.hello.main:cli"
+hello = "hello.main:cli"
 ```
 - `hello` = The name of the cli when we run it.
 - `src.hello.` = The name of the package
