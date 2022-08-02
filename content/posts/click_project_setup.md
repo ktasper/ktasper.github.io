@@ -183,7 +183,7 @@ git push -u origin main
 Add it as a dependency:
 
 ```bash
-poetry add pre-commit
+poetry add pre-commit pylint
 ```
 
 Don't forget to update git!
