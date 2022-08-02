@@ -24,7 +24,7 @@ After lots of playing around with python dependency management, cli library&rsqu
 <link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=manifest href=/site.webmanifest><link rel=canonical href=https://blog.ktasper.com/click_project_setup/><link rel=prev href=https://blog.ktasper.com/hello-world/><link rel=stylesheet href=/lib/normalize/normalize.min.css><link rel=stylesheet href=/css/style.min.css><link rel=preload as=style onload="this.onload=null,this.rel='stylesheet'" href=/lib/fontawesome-free/all.min.css>
 <noscript><link rel=stylesheet href=/lib/fontawesome-free/all.min.css></noscript><link rel=preload as=style onload="this.onload=null,this.rel='stylesheet'" href=/lib/animate/animate.min.css>
 <noscript><link rel=stylesheet href=/lib/animate/animate.min.css></noscript>
-<script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"How to Create a Python CLI Package In 2022","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/blog.ktasper.com\/click_project_setup\/"},"image":["https:\/\/blog.ktasper.com\/images\/Apple-Devices-Preview.png"],"genre":"posts","keywords":"click, poetry","wordcount":651,"url":"https:\/\/blog.ktasper.com\/click_project_setup\/","datePublished":"2022-08-02T10:19:32+01:00","dateModified":"2022-08-02T10:19:32+01:00","license":"This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher":{"@type":"Organization","name":"xxxx","logo":"https:\/\/blog.ktasper.com\/images\/avatar.png"},"author":{"@type":"Person","name":"Ktasper"},"description":""}</script></head>
+<script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"How to Create a Python CLI Package In 2022","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/blog.ktasper.com\/click_project_setup\/"},"image":["https:\/\/blog.ktasper.com\/images\/Apple-Devices-Preview.png"],"genre":"posts","keywords":"click, poetry","wordcount":645,"url":"https:\/\/blog.ktasper.com\/click_project_setup\/","datePublished":"2022-08-02T10:19:32+01:00","dateModified":"2022-08-02T10:19:32+01:00","license":"This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher":{"@type":"Organization","name":"xxxx","logo":"https:\/\/blog.ktasper.com\/images\/avatar.png"},"author":{"@type":"Person","name":"Ktasper"},"description":""}</script></head>
 <body header-desktop=auto header-mobile=auto><script type=text/javascript>function setTheme(a){document.body.setAttribute('theme',a),document.documentElement.style.setProperty('color-scheme',a==='light'?'light':'dark')}function saveTheme(a){window.localStorage&&localStorage.setItem('theme',a)}function getMeta(b){const a=document.getElementsByTagName('meta');for(let c=0;c<a.length;c++)if(a[c].getAttribute('name')===b)return a[c];return''}if(window.localStorage&&localStorage.getItem('theme')){let a=localStorage.getItem('theme');a==='light'||a==='dark'||a==='black'?setTheme(a):window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?setTheme('dark'):setTheme('light')}else'black'==='light'||'black'==='dark'||'black'==='black'?(setTheme('black'),saveTheme('black')):(saveTheme('auto'),window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?setTheme('dark'):setTheme('light'));let metaColors={light:'#f8f8f8',dark:'#252627',black:'#000000'};getMeta('theme-color').content=metaColors[document.body.getAttribute('theme')]</script>
 <div id=back-to-top></div>
 <div id=mask></div><div class=wrapper><header class=desktop id=header-desktop>
@@ -123,7 +123,7 @@ Cancel
 <div class=post-meta-line>
 <span class=post-author><i class="author fas fa-user-circle fa-fw"></i><a href=https://github.com/ktasper title=Author target=_blank rel="noopener noreffer author" class=author>Ktasper</a>
 </span></div>
-<div class=post-meta-line><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime=02-08-2022>02-08-2022</time>&nbsp;<i class="far fa-edit fa-fw"></i>&nbsp;<time datetime=02-08-2022>02-08-2022</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;651 words&nbsp;
+<div class=post-meta-line><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime=02-08-2022>02-08-2022</time>&nbsp;<i class="far fa-edit fa-fw"></i>&nbsp;<time datetime=02-08-2022>02-08-2022</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;645 words&nbsp;
 <i class="far fa-clock fa-fw"></i>&nbsp;4 minutes&nbsp;</div>
 </div><div class="details toc" id=toc-static kept>
 <div class="details-summary toc-title">
@@ -231,8 +231,8 @@ does all the hard work for us. We need to add a <code>tool.poetry.scripts</code>
 </span><span class=lnt>2
 </span></code></pre></td>
 <td class=lntd>
-<pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback>[tool.poetry.scripts]
-hello = &#34;src.hello.main:cli&#34;
+<pre tabindex=0 class=chroma><code class=language-toml data-lang=toml><span class=p>[</span><span class=nx>tool</span><span class=p>.</span><span class=nx>poetry</span><span class=p>.</span><span class=nx>scripts</span><span class=p>]</span>
+<span class=nx>hello</span> <span class=p>=</span> <span class=s2>&#34;src.hello.main:cli&#34;</span>
 </code></pre></td></tr></table>
 </div>
 </div><ul>
@@ -344,17 +344,9 @@ git commit -m &#34;Add pre-commit dependency.&#34;
 </span><span class=lnt>11
 </span><span class=lnt>12
 </span><span class=lnt>13
-</span><span class=lnt>14
-</span><span class=lnt>15
-</span><span class=lnt>16
-</span><span class=lnt>17
 </span></code></pre></td>
 <td class=lntd>
 <pre tabindex=0 class=chroma><code class=language-yaml data-lang=yaml><span class=nt>repos</span><span class=p>:</span><span class=w>
-</span><span class=w>    </span>- <span class=nt>repo</span><span class=p>:</span><span class=w> </span><span class=l>https://github.com/psf/black</span><span class=w>
-</span><span class=w>      </span><span class=nt>rev</span><span class=p>:</span><span class=w> </span><span class=m>19.</span><span class=l>10b0</span><span class=w>
-</span><span class=w>      </span><span class=nt>hooks</span><span class=p>:</span><span class=w>
-</span><span class=w>        </span>- <span class=nt>id</span><span class=p>:</span><span class=w> </span><span class=l>black</span><span class=w>
 </span><span class=w>    </span>- <span class=nt>repo</span><span class=p>:</span><span class=w> </span><span class=l>https://github.com/pre-commit/pre-commit-hooks</span><span class=w>
 </span><span class=w>      </span><span class=nt>rev</span><span class=p>:</span><span class=w> </span><span class=l>v2.5.0</span><span class=w>
 </span><span class=w>      </span><span class=nt>hooks</span><span class=p>:</span><span class=w>
