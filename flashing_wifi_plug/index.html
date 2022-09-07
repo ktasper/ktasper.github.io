@@ -1,0 +1,529 @@
+<!doctype html><html lang=en>
+<head>
+<meta charset=utf-8>
+<meta name=viewport content="width=device-width,initial-scale=1">
+<meta name=robots content="noodp">
+<title class=pjax-title>Flashing Tasmota On Smart Plugs Via Tuya-Convert - Ktasper Tech</title><meta name=Description content="The official documentation for the Hugo DoIt theme"><meta property="og:title" content="Flashing Tasmota On Smart Plugs Via Tuya-Convert">
+<meta property="og:description" content="WhyI have a Ender-3 3D printer, I want to be able to turn it off when its finished printing without splicing my power cable and using a RaspberryPi&rsquo;s GPIO to cut power. I decided to do it with software and a SmartPlug. I don&rsquo;t really want some unknown IoT device on my network, so I want to flash it an OpenSource firmware.
+Not to mention the OpenSource Firmware (Tasmota) integrates with my OctoPrint Setup.">
+<meta property="og:type" content="article">
+<meta property="og:url" content="https://blog.ktasper.com/flashing_wifi_plug/"><meta property="og:image" content="https://blog.ktasper.com/images/avatar.png"><meta property="article:section" content="posts">
+<meta property="article:published_time" content="2022-09-07T17:19:43+01:00">
+<meta property="article:modified_time" content="2022-09-07T17:19:43+01:00"><meta property="og:site_name" content="Hugo DoIt Theme Documentation">
+<meta name=twitter:card content="summary_large_image">
+<meta name=twitter:image content="https://blog.ktasper.com/images/avatar.png">
+<meta name=twitter:title content="Flashing Tasmota On Smart Plugs Via Tuya-Convert">
+<meta name=twitter:description content="WhyI have a Ender-3 3D printer, I want to be able to turn it off when its finished printing without splicing my power cable and using a RaspberryPi&rsquo;s GPIO to cut power. I decided to do it with software and a SmartPlug. I don&rsquo;t really want some unknown IoT device on my network, so I want to flash it an OpenSource firmware.
+Not to mention the OpenSource Firmware (Tasmota) integrates with my OctoPrint Setup.">
+<meta name=application-name content="Ktasper Tech">
+<meta name=apple-mobile-web-app-title content="Ktasper Tech">
+<meta name=theme-color content="#f8f8f8"><meta name=msapplication-TileColor content="#da532c"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico>
+<link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png>
+<link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=manifest href=/site.webmanifest><link rel=canonical href=https://blog.ktasper.com/flashing_wifi_plug/><link rel=prev href=https://blog.ktasper.com/click_project_setup/><link rel=stylesheet href=/lib/normalize/normalize.min.css><link rel=stylesheet href=/css/style.min.css><link rel=preload as=style onload="this.onload=null,this.rel='stylesheet'" href=/lib/fontawesome-free/all.min.css>
+<noscript><link rel=stylesheet href=/lib/fontawesome-free/all.min.css></noscript><link rel=preload as=style onload="this.onload=null,this.rel='stylesheet'" href=/lib/animate/animate.min.css>
+<noscript><link rel=stylesheet href=/lib/animate/animate.min.css></noscript>
+<script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"Flashing Tasmota On Smart Plugs Via Tuya-Convert","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/blog.ktasper.com\/flashing_wifi_plug\/"},"image":["https:\/\/blog.ktasper.com\/images\/Apple-Devices-Preview.png"],"genre":"posts","wordcount":1043,"url":"https:\/\/blog.ktasper.com\/flashing_wifi_plug\/","datePublished":"2022-09-07T17:19:43+01:00","dateModified":"2022-09-07T17:19:43+01:00","license":"This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher":{"@type":"Organization","name":"xxxx","logo":"https:\/\/blog.ktasper.com\/images\/avatar.png"},"author":{"@type":"Person","name":"Ktasper"},"description":""}</script></head>
+<body header-desktop=auto header-mobile=auto><script type=text/javascript>function setTheme(a){document.body.setAttribute('theme',a),document.documentElement.style.setProperty('color-scheme',a==='light'?'light':'dark')}function saveTheme(a){window.localStorage&&localStorage.setItem('theme',a)}function getMeta(b){const a=document.getElementsByTagName('meta');for(let c=0;c<a.length;c++)if(a[c].getAttribute('name')===b)return a[c];return''}if(window.localStorage&&localStorage.getItem('theme')){let a=localStorage.getItem('theme');a==='light'||a==='dark'||a==='black'?setTheme(a):window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?setTheme('dark'):setTheme('light')}else'black'==='light'||'black'==='dark'||'black'==='black'?(setTheme('black'),saveTheme('black')):(saveTheme('auto'),window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?setTheme('dark'):setTheme('light'));let metaColors={light:'#f8f8f8',dark:'#252627',black:'#000000'};getMeta('theme-color').content=metaColors[document.body.getAttribute('theme')]</script>
+<div id=back-to-top></div>
+<div id=mask></div><div class=wrapper><header class=desktop id=header-desktop>
+<div class=header-wrapper>
+<div class=header-title>
+<a href=/ title="Ktasper Tech"><span class=header-title-pre><i class="fas fa-laptop"></i></span><span id=desktop-header-typeit class=typeit></span></a>
+</div>
+<div class=menu>
+<div class=menu-inner><a class=menu-item href=/posts/> Posts </a><a class=menu-item href=/tags/> Tags </a><a class=menu-item href=/categories/> Categories </a><a class=menu-item href=/series/> Series </a><a class=menu-item href=/library/> Library </a><a class=menu-item href=/about/> About </a><a class=menu-item href=https://github.com/ktasper title=GitHub rel="noopener noreffer" target=_blank><i class="fab fa-github fa-fw"></i> </a><span class="menu-item delimiter"></span><span class="menu-item search" id=search-desktop>
+<input type=text placeholder="Search titles or contents..." id=search-input-desktop>
+<a href=# onclick=return!1 class="search-button search-toggle" id=search-toggle-desktop title=Search>
+<i class="fas fa-search fa-fw"></i>
+</a>
+<a href=# onclick=return!1 class="search-button search-clear" id=search-clear-desktop title=Clear>
+<i class="fas fa-times-circle fa-fw"></i>
+</a>
+<span class="search-button search-loading" id=search-loading-desktop>
+<i class="fas fa-spinner fa-fw fa-spin"></i>
+</span>
+</span><a href=# onclick=return!1 class="menu-item theme-switch" title="Switch Theme">
+<i class="fas fa-adjust fa-fw"></i>
+</a></div>
+</div>
+</div>
+</header><header class=mobile id=header-mobile>
+<div class=header-container>
+<div class=header-wrapper>
+<div class=header-title>
+<a href=/ title="Ktasper Tech"><span class=header-title-pre><i class="fas fa-laptop"></i></span><span id=mobile-header-typeit class=typeit></span></a>
+</div>
+<div class=menu-toggle id=menu-toggle-mobile>
+<span></span><span></span><span></span>
+</div>
+</div>
+<div class=menu id=menu-mobile><div class=search-wrapper>
+<div class="search mobile" id=search-mobile>
+<input type=text placeholder="Search titles or contents..." id=search-input-mobile>
+<a href=# onclick=return!1 class="search-button search-toggle" id=search-toggle-mobile title=Search>
+<i class="fas fa-search fa-fw"></i>
+</a>
+<a href=# onclick=return!1 class="search-button search-clear" id=search-clear-mobile title=Clear>
+<i class="fas fa-times-circle fa-fw"></i>
+</a>
+<span class="search-button search-loading" id=search-loading-mobile>
+<i class="fas fa-spinner fa-fw fa-spin"></i>
+</span>
+</div>
+<a href=# onclick=return!1 class=search-cancel id=search-cancel-mobile>
+Cancel
+</a>
+</div><a class=menu-item href=/posts/ title>Posts</a><a class=menu-item href=/tags/ title>Tags</a><a class=menu-item href=/categories/ title>Categories</a><a class=menu-item href=/series/ title>Series</a><a class=menu-item href=/library/ title>Library</a><a class=menu-item href=/about/ title>About</a><a class=menu-item href=https://github.com/ktasper title=GitHub rel="noopener noreffer" target=_blank><i class="fab fa-github fa-fw"></i></a><a href=# onclick=return!1 class="menu-item theme-switch" title="Switch Theme">
+<i class="fas fa-adjust fa-fw"></i>
+</a></div>
+</div>
+</header>
+<div class="search-dropdown desktop">
+<div id=search-dropdown-desktop></div>
+</div>
+<div class="search-dropdown mobile">
+<div id=search-dropdown-mobile></div>
+</div>
+<main class=main>
+<div class=container><div class=toc id=toc-auto>
+<h2 class=toc-title>Contents</h2>
+<div class=toc-content id=toc-content-auto><nav id=TableOfContents>
+<ul>
+<li><a href=#why>Why</a></li>
+<li><a href=#my-device>My Device</a></li>
+<li><a href=#checks>Checks</a></li>
+<li><a href=#flashing>Flashing</a>
+<ul>
+<li><a href=#tools>Tools</a></li>
+<li><a href=#process>Process</a>
+<ul>
+<li><a href=#post-firmware-flash-config>Post Firmware Flash Config</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav></div>
+</div><script>document.getElementsByTagName("main")[0].setAttribute("pageStyle","normal")</script><script>document.getElementsByTagName("main")[0].setAttribute("autoTOC","true")</script><article class="page single"><h1 class="single-title animate__animated animate__flipInX">Flashing Tasmota On Smart Plugs Via Tuya-Convert</h1><h2 class=single-subtitle>Fiddling with firmware...</h2><div class=post-meta>
+<div class=post-meta-line>
+<span class=post-author><i class="author fas fa-user-circle fa-fw"></i><a href=https://github.com/ktasper title=Author target=_blank rel="noopener noreffer author" class=author>Ktasper</a>
+</span></div>
+<div class=post-meta-line><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime=07-09-2022>07-09-2022</time>&nbsp;<i class="far fa-edit fa-fw"></i>&nbsp;<time datetime=07-09-2022>07-09-2022</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;1043 words&nbsp;
+<i class="far fa-clock fa-fw"></i>&nbsp;5 minutes&nbsp;</div>
+</div><div class=featured-image><img class=lazyload data-src=images/smart_plug/banner.png data-srcset="/images/smart_plug/banner.png, images/smart_plug/banner.png 1.5x, /images/smart_plug/banner.png 2x" data-sizes=auto alt=/images/smart_plug/banner.png title=/images/smart_plug/banner.png height=auto width=auto></div><div class="details toc" id=toc-static kept>
+<div class="details-summary toc-title">
+<span>Contents</span>
+<span><i class="details-icon fas fa-angle-right"></i></span>
+</div>
+<div class="details-content toc-content" id=toc-content-static><nav id=TableOfContents>
+<ul>
+<li><a href=#why>Why</a></li>
+<li><a href=#my-device>My Device</a></li>
+<li><a href=#checks>Checks</a></li>
+<li><a href=#flashing>Flashing</a>
+<ul>
+<li><a href=#tools>Tools</a></li>
+<li><a href=#process>Process</a>
+<ul>
+<li><a href=#post-firmware-flash-config>Post Firmware Flash Config</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</nav></div>
+</div><div class=content id=content><h2 id=why class=headerLink>
+<a href=#why class=header-mark></a>Why</h2><p>I have a Ender-3 3D printer, I want to be able to turn it off when its finished printing without splicing my power cable and using a RaspberryPi&rsquo;s GPIO to cut power. I decided to do it with software
+and a SmartPlug. I don&rsquo;t really want some unknown IoT device on my network, so I want to flash it an OpenSource firmware.</p>
+<p>Not to mention the OpenSource Firmware (Tasmota) integrates with my OctoPrint Setup.</p>
+<h2 id=my-device class=headerLink>
+<a href=#my-device class=header-mark></a>My Device</h2><p>This is the plug I brought: <a href="https://www.amazon.co.uk/gp/product/B09QQDVKZD/ref=ppx_yo_dt_b_asin_title_o01_s00?ie=UTF8&th=1" target=_blank rel="noopener noreffer">here</a> in case the listing is removed here are the details:</p>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback>Name: Smart Plug,Smart Wifi Plug Compatible with Alexa, Google Home, Wifi Plug with Timer Function App Remote Control, No Hub Required, 2.4Ghz ONLY (Energy Monitoring) (1Pack) 
+Seller: OHMAXX
+EAN: 0638457638929
+UPC: 638457638929 
+Part No: KU11 
+</code></pre></td></tr></table>
+</div>
+</div><p><figure><a class=lightgallery href=/images/smart_plug/amazon_listing.png title=/images/smart_plug/amazon_listing.png data-thumbnail=/images/smart_plug/amazon_listing.png data-sub-html="<h2>The amazon listing</h2>">
+<img class=lazyload data-src=images/smart_plug/amazon_listing.png data-srcset="/images/smart_plug/amazon_listing.png, images/smart_plug/amazon_listing.png 1.5x, /images/smart_plug/amazon_listing.png 2x" data-sizes=auto alt=/images/smart_plug/amazon_listing.png height=800 width=800>
+</a><figcaption class=image-caption>The amazon listing</figcaption>
+</figure>
+<figure><a class=lightgallery href=/images/smart_plug/box.jpg title=/images/smart_plug/box.jpg data-thumbnail=/images/smart_plug/box.jpg data-sub-html="<h2>The box</h2>">
+<img class=lazyload data-src=images/smart_plug/box.jpg data-srcset="/images/smart_plug/box.jpg, images/smart_plug/box.jpg 1.5x, /images/smart_plug/box.jpg 2x" data-sizes=auto alt=/images/smart_plug/box.jpg height=500 width=400>
+</a><figcaption class=image-caption>The box</figcaption>
+</figure>
+<figure><a class=lightgallery href=/images/smart_plug/plug.jpg title=/images/smart_plug/plug.jpg data-thumbnail=/images/smart_plug/plug.jpg data-sub-html="<h2>The back of the plug</h2>">
+<img class=lazyload data-src=images/smart_plug/plug.jpg data-srcset="/images/smart_plug/plug.jpg, images/smart_plug/plug.jpg 1.5x, /images/smart_plug/plug.jpg 2x" data-sizes=auto alt=/images/smart_plug/plug.jpg height=500 width=400>
+</a><figcaption class=image-caption>The back of the plug</figcaption>
+</figure></p>
+<p><img class=lazyload data-src data-srcset=",  1.5x,  2x" data-sizes=auto alt title="Back Of Plug"></p>
+<h2 id=checks class=headerLink>
+<a href=#checks class=header-mark></a>Checks</h2><p>When I got the plug, there was a leaflet telling me to install &ldquo;Gosund&rdquo; app on my smartphone,
+this is good news because that means its almost certainty a Tuya device.</p>
+<figure><a class=lightgallery href=/images/smart_plug/leaflet.jpg title=/images/smart_plug/leaflet.jpg data-thumbnail=/images/smart_plug/leaflet.jpg data-sub-html="<h2>The leaflet</h2>">
+<img class=lazyload data-src=images/smart_plug/leaflet.jpg data-srcset="/images/smart_plug/leaflet.jpg, images/smart_plug/leaflet.jpg 1.5x, /images/smart_plug/leaflet.jpg 2x" data-sizes=auto alt=/images/smart_plug/leaflet.jpg height=500 width=400>
+</a><figcaption class=image-caption>The leaflet</figcaption>
+</figure>
+<h2 id=flashing class=headerLink>
+<a href=#flashing class=header-mark></a>Flashing</h2><p>This is my documentation on how I managed to flash the firmware on my Plug. This is from box to flash. I did not want the
+plug to pick up an OTA update and blocking my ability to flash it. (Imagine saying that in the early 2000&rsquo;s)</p>
+<h3 id=tools class=headerLink>
+<a href=#tools class=header-mark></a>Tools</h3><ul>
+<li>The SmartPlug</li>
+<li>Raspberry Pi 4 (Ethernet)</li>
+<li>Mobile Phone (Android)</li>
+</ul>
+<h3 id=process class=headerLink>
+<a href=#process class=header-mark></a>Process</h3><ul>
+<li>From my PC I ssh&rsquo;d into my raspberry pi (Via the Ethernet adapter).</li>
+</ul>
+<div class="details admonition failure open">
+<div class="details-summary admonition-title">
+<i class="icon fas fa-times-circle fa-fw"></i>To Docker or Not to Docker<i class="details-icon fas fa-angle-right fa-fw"></i>
+</div>
+<div class=details-content>
+<div class=admonition-content>I tried following the guide for setting it up in Docker containers but I had no luck.
+The network SSID never appeared.</div>
+</div>
+</div>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-sh data-lang=sh><span class=nb>cd</span> /tmp/
+git clone https://github.com/ct-Open-Source/tuya-convert
+<span class=nb>cd</span> tuya-convert
+./install_prereq.sh
+./start_flash.sh
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>
+<p>This brought up a warning with the usual &ldquo;Don&rsquo;t sue me&rdquo; etc. I skipped this by typing <code>yes</code>.</p>
+</li>
+<li>
+<p>It also prompted me if I wanted to kill <code>dnsmasq</code>, <code>mosquitto</code>. I said <code>yes</code></p>
+</li>
+<li>
+<p>It then asked me to connect my phone or another device to <code>vtrust-flash</code>. I did this via my Samsung A53</p>
+</li>
+<li>
+<p>I then plugged in the smart plug, the power light was flashing blue. I assume this is it in pairing mode.</p>
+</li>
+<li>
+<p>I then pressed <code>Enter</code> and it seemed to find the smart plug.. or so I thought:</p>
+</li>
+</ul>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback>======================================================
+Starting smart config pairing procedure
+Waiting for the device to install the intermediate firmware
+Put device in EZ config mode (blinking fast)
+Sending SSID                  vtrust-flash
+Sending wifiPassword
+Sending token                 00000000
+Sending secret                0101
+....
+SmartConfig complete.
+Resending SmartConfig Packets
+.................
+SmartConfig complete.
+Resending SmartConfig Packets
+............
+Timed out while waiting for the device to (re)connect
+======================================================
+Attempting to diagnose the issue...
+No ESP82xx based devices connected according to your wifi log.
+Here is a list of all the MAC addresses that connected:
+
+&lt;Phone Mac Address&gt;
+
+If you see your IoT device in this list, it is not an ESP82xx based device.
+Otherwise, another issue may be preventing it from connecting.
+For additional information, check the *.log files inside the scripts folder.
+Please include these logs when opening a new issue on our GitHub issue tracker.
+======================================================
+Do you want to try flashing another device? [y/N] z
+======================================================
+Cleaning up...
+Closing AP
+Exiting...
+
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>
+<p>This seems to just be seeing my Phone.</p>
+</li>
+<li>
+<p>It seems I had to hold the power button for a few seconds and it started flashing even faster.</p>
+</li>
+<li>
+<p>Now the flash was successful</p>
+</li>
+</ul>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt> 1
+</span><span class=lnt> 2
+</span><span class=lnt> 3
+</span><span class=lnt> 4
+</span><span class=lnt> 5
+</span><span class=lnt> 6
+</span><span class=lnt> 7
+</span><span class=lnt> 8
+</span><span class=lnt> 9
+</span><span class=lnt>10
+</span><span class=lnt>11
+</span><span class=lnt>12
+</span><span class=lnt>13
+</span><span class=lnt>14
+</span><span class=lnt>15
+</span><span class=lnt>16
+</span><span class=lnt>17
+</span><span class=lnt>18
+</span><span class=lnt>19
+</span><span class=lnt>20
+</span><span class=lnt>21
+</span><span class=lnt>22
+</span><span class=lnt>23
+</span><span class=lnt>24
+</span><span class=lnt>25
+</span><span class=lnt>26
+</span><span class=lnt>27
+</span><span class=lnt>28
+</span><span class=lnt>29
+</span><span class=lnt>30
+</span><span class=lnt>31
+</span><span class=lnt>32
+</span><span class=lnt>33
+</span><span class=lnt>34
+</span><span class=lnt>35
+</span><span class=lnt>36
+</span><span class=lnt>37
+</span><span class=lnt>38
+</span><span class=lnt>39
+</span><span class=lnt>40
+</span><span class=lnt>41
+</span><span class=lnt>42
+</span><span class=lnt>43
+</span><span class=lnt>44
+</span><span class=lnt>45
+</span><span class=lnt>46
+</span><span class=lnt>47
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback>======================================================
+Starting smart config pairing procedure
+Waiting for the device to install the intermediate firmware
+Put device in EZ config mode (blinking fast)
+Sending SSID                  vtrust-flash
+Sending wifiPassword
+Sending token                 00000000
+Sending secret                0101
+................
+SmartConfig complete.
+Resending SmartConfig Packets
+................................................................................................
+IoT-device is online with ip 10.42.42.42
+Fetching firmware backup
+  % Total    % Received % Xferd  Average Speed   Time    Time     Time  Current
+                                 Dload  Upload   Total   Spent    Left  Speed
+100 1024k  100 1024k    0     0  65712      0  0:00:15  0:00:15 --:--:-- 31304
+======================================================
+Getting Info from IoT-device
+VTRUST-FLASH 1.5
+(c) VTRUST GMBH https://www.vtrust.de/35c3/
+READ FLASH: http://10.42.42.42/backup
+ChipID: 40f806
+MAC: &lt;REDACTED&gt;
+BootVersion: 7
+BootMode: normal
+FlashMode: 1M DOUT @ 40MHz
+FlashChipId: 144051
+FlashChipRealSize: 1024K
+Active Userspace: user2 0x81000
+======================================================
+Ready to flash third party firmware!
+
+For your convenience, the following firmware images are already included in this repository:
+  Tasmota v8.1.0.2 (wifiman)
+  ESPurna 1.13.5 (base)
+
+You can also provide your own image by placing it in the /files directory
+Please ensure the firmware fits the device and includes the bootloader
+MAXIMUM SIZE IS 512KB
+
+Available options:
+  0) return to stock
+  1) flash espurna.bin
+  2) flash tasmota.bin
+  q) quit; do nothing
+Please select 0-2:
+</code></pre></td></tr></table>
+</div>
+</div><div class="details admonition tip open">
+<div class="details-summary admonition-title">
+<i class="icon fas fa-lightbulb fa-fw"></i>Save Time Finding The Plug<i class="details-icon fas fa-angle-right fa-fw"></i>
+</div>
+<div class=details-content>
+<div class=admonition-content>If you are like me and have lots of devices on your network, save the MAC so you can find its IP once you get it connected on your home network.</div>
+</div>
+</div>
+<ul>
+<li>I chose option 2 as I wanted the <code>tasmota</code> firmware</li>
+</ul>
+<h4 id=post-firmware-flash-config class=headerLink>
+<a href=#post-firmware-flash-config class=header-mark></a>Post Firmware Flash Config</h4><ul>
+<li>
+<p>I again connect to the <code>tasmota-xxxx</code> WiFi via my phone. Navigated to <code>192.168.4.1</code>. This presented the Tasmota config screen.</p>
+</li>
+<li>
+<p>This is what I filled in for each field:</p>
+</li>
+</ul>
+<div class=highlight><div class=chroma>
+<table class=lntable><tr><td class=lntd>
+<pre tabindex=0 class=chroma><code><span class=lnt>1
+</span><span class=lnt>2
+</span><span class=lnt>3
+</span><span class=lnt>4
+</span><span class=lnt>5
+</span><span class=lnt>6
+</span><span class=lnt>7
+</span><span class=lnt>8
+</span><span class=lnt>9
+</span></code></pre></td>
+<td class=lntd>
+<pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback>AP1 SSId: This is my Router SSID (To connect it to my network)
+AP1
+Password: This is my Network Password (To connect it to my network)
+
+AP2 SSId: Left empty
+AP2 Password: Left as default (***)
+
+Hostname: Left as default
+CORS Domain: Empty
+</code></pre></td></tr></table>
+</div>
+</div><ul>
+<li>
+<p>Once I applied I saw a message: <code>Trying to connect device to network.</code></p>
+</li>
+<li>
+<p>I then logged into my router, searched for the smart plug MAC and connected via my home network.</p>
+</li>
+</ul>
+<div class="details admonition tip open">
+<div class="details-summary admonition-title">
+<i class="icon fas fa-lightbulb fa-fw"></i>Save That IP<i class="details-icon fas fa-angle-right fa-fw"></i>
+</div>
+<div class=details-content>
+<div class=admonition-content>Top Tip: Create a static IP reservation on your router!</div>
+</div>
+</div>
+<ul>
+<li>I went to <code>Firmware upgrade</code> and did an <code>OTA</code> Upgrade.</li>
+</ul>
+<h1 id=references class=headerLink>
+<a href=#references class=header-mark></a>References</h1><ul>
+<li><a href="https://www.amazon.co.uk/gp/customer-reviews/R1R3W3SS4GUDEY?ref=pf_vv_at_pdctrvw_srp" target=_blank rel="noopener noreffer">Sam on Amazon</a></li>
+<li><a href=https://tasmota.github.io/docs/Tuya-Convert/ target=_blank rel="noopener noreffer">Tasmota Info on Tuya</a></li>
+<li><a href=https://github.com/ct-Open-Source/tuya-convert target=_blank rel="noopener noreffer">Github guide on Tuya-Convert</a></li>
+<li><a href=https://www.dsbd.tech/blogs/press-release-ten-companies-will-test-next-generation-cybersecurity-technologies-from-the-university-of-cambridge-and-arm/ target=_blank rel="noopener noreffer">Front Page Picture</a></li>
+</ul>
+</div>
+<div class=post-footer id=post-footer>
+<div class=post-info>
+<div class=post-info-line>
+<div class=post-info-mod>
+<span>Updated on 07-09-2022</span>
+</div>
+<div class=post-info-license></div>
+</div>
+<div class=post-info-line>
+<div class=post-info-md><span><a class=link-to-mardown href=/flashing_wifi_plug/index.md target=_blank rel="noopener noreferrer">Read markdown</a>
+</span></div>
+<div class=post-info-share>
+<span><a href=# onclick=return!1 title="Share on Twitter" data-sharer=twitter data-url=https://blog.ktasper.com/flashing_wifi_plug/ data-title="Flashing Tasmota On Smart Plugs Via Tuya-Convert"><i class="fab fa-twitter fa-fw"></i></a><a href=# onclick=return!1 title="Share on Linkedin" data-sharer=linkedin data-url=https://blog.ktasper.com/flashing_wifi_plug/><i class="fab fa-linkedin fa-fw"></i></a><a href=# onclick=return!1 title="Share on Hacker News" data-sharer=hackernews data-url=https://blog.ktasper.com/flashing_wifi_plug/ data-title="Flashing Tasmota On Smart Plugs Via Tuya-Convert"><i class="fab fa-hacker-news fa-fw"></i></a><a href=# onclick=return!1 title="Share on Reddit" data-sharer=reddit data-url=https://blog.ktasper.com/flashing_wifi_plug/><i class="fab fa-reddit fa-fw"></i></a></span>
+</div>
+</div>
+</div>
+<div class=post-info-more>
+<section class=post-tags></section>
+<section>
+<span><a href=javascript:void(0); onclick=window.history.back()>Back</a></span>&nbsp;|&nbsp;<span><a href=/>Home</a></span>
+</section>
+</div>
+<div class=post-nav><a href=/click_project_setup/ class=prev rel=prev title="How to Create a Python CLI Package In 2022"><i class="fas fa-angle-left fa-fw"></i>How to Create a Python CLI Package In 2022</a></div>
+</div>
+</article></div>
+</main><footer class=footer>
+<div class=footer-container><div class=footer-line>
+Powered by <a href=https://gohugo.io/ target=_blank rel="noopener noreffer" title="Hugo 0.91.2">Hugo</a>&nbsp;|&nbsp;Theme - <a href=https://github.com/HEIGE-PCloud/DoIt target=_blank rel="noopener noreffer" title="DoIt 0.2.13"><i class="far fa-edit fa-fw"></i> DoIt</a>
+</div><div class=footer-line><i class="far fa-copyright fa-fw"></i><span itemprop=copyrightYear>2022</span><span class=author itemprop=copyrightHolder>&nbsp;<a href=https://github.com/ktasper target=_blank rel="noopener noreferrer">Ktasper</a></span>&nbsp;|&nbsp;<span class=license><a rel="license external nofollow noopener noreffer" href=https://creativecommons.org/licenses/by-nc/4.0/ target=_blank>CC BY-NC 4.0</a></span></div>
+<div class=footer-line></div>
+<div class=footer-line>
+</div>
+</div><script>'serviceWorker'in navigator&&(navigator.serviceWorker.register('/sw.min.js',{scope:'/'}).then(function(a){}),navigator.serviceWorker.ready.then(function(a){}))</script></footer></div>
+<div id=fixed-buttons><a href=#back-to-top id=back-to-top-button class=fixed-button title="Back to Top">
+<i class="fas fa-arrow-up fa-fw"></i>
+</a><a href=# id=view-comments class=fixed-button title="View Comments">
+<i class="fas fa-comment fa-fw"></i>
+</a>
+</div><div class=assets><script type=text/javascript src=/lib/autocomplete/autocomplete.min.js></script><script type=text/javascript src=/lib/fuse/fuse.min.js></script><script type=text/javascript src=/lib/lazysizes/lazysizes.min.js></script><script type=text/javascript src=/lib/tablesort/tablesort.min.js></script><script type=text/javascript src=/lib/topbar/topbar.min.js></script><script type=text/javascript src=/lib/pjax/pjax.min.js></script><script type=text/javascript src=/js/theme.min.js defer></script></div>
+<div class=pjax-assets><script type=text/javascript>window.config={code:{copyTitle:"Copy to clipboard",maxShownLines:10},comment:{},data:{"desktop-header-typeit":"Ktasper Tech","mobile-header-typeit":"Ktasper Tech"},lightGallery:{actualSize:!1,exThumbImage:"data-thumbnail",hideBarsDelay:2e3,selector:".lightgallery",speed:400,thumbContHeight:80,thumbWidth:80,thumbnail:!0},search:{distance:100,findAllMatches:!1,fuseIndexURL:"/index.json",highlightTag:"em",ignoreFieldNorm:!1,ignoreLocation:!0,isCaseSensitive:!1,location:0,maxResultLength:10,minMatchCharLength:2,noResultsFound:"No results found",snippetLength:300,threshold:.1,type:"fuse",useExtendedSearch:!1},sharerjs:!0,table:{sort:!0},typeit:{cursorChar:"|",cursorSpeed:1e3,data:{"desktop-header-typeit":["desktop-header-typeit"],"mobile-header-typeit":["mobile-header-typeit"]},duration:-1,speed:100}}</script><script type=text/javascript src=/lib/lightgallery/lightgallery.min.js></script><script type=text/javascript src=/lib/lightgallery/lg-thumbnail.min.js></script><script type=text/javascript src=/lib/lightgallery/lg-zoom.min.js></script><script type=text/javascript src=/lib/clipboard/clipboard.min.js></script><script type=text/javascript src=/lib/sharer/sharer.min.js></script><script type=text/javascript src=/lib/typeit/typeit.min.js></script><link rel=stylesheet href=/lib/lightgallery/lightgallery.min.css></div>
+</body>
+</html>

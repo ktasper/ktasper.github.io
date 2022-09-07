@@ -21,7 +21,7 @@ After lots of playing around with python dependency management, cli library&rsqu
 <meta name=apple-mobile-web-app-title content="Ktasper Tech">
 <meta name=theme-color content="#f8f8f8"><meta name=msapplication-TileColor content="#da532c"><link rel="shortcut icon" type=image/x-icon href=/favicon.ico>
 <link rel=icon type=image/png sizes=32x32 href=/favicon-32x32.png>
-<link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=manifest href=/site.webmanifest><link rel=canonical href=https://blog.ktasper.com/click_project_setup/><link rel=prev href=https://blog.ktasper.com/hello-world/><link rel=stylesheet href=/lib/normalize/normalize.min.css><link rel=stylesheet href=/css/style.min.css><link rel=preload as=style onload="this.onload=null,this.rel='stylesheet'" href=/lib/fontawesome-free/all.min.css>
+<link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=manifest href=/site.webmanifest><link rel=canonical href=https://blog.ktasper.com/click_project_setup/><link rel=prev href=https://blog.ktasper.com/hello-world/><link rel=next href=https://blog.ktasper.com/flashing_wifi_plug/><link rel=stylesheet href=/lib/normalize/normalize.min.css><link rel=stylesheet href=/css/style.min.css><link rel=preload as=style onload="this.onload=null,this.rel='stylesheet'" href=/lib/fontawesome-free/all.min.css>
 <noscript><link rel=stylesheet href=/lib/fontawesome-free/all.min.css></noscript><link rel=preload as=style onload="this.onload=null,this.rel='stylesheet'" href=/lib/animate/animate.min.css>
 <noscript><link rel=stylesheet href=/lib/animate/animate.min.css></noscript>
 <script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"How to Create a Python CLI Package In 2022","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/blog.ktasper.com\/click_project_setup\/"},"image":["https:\/\/blog.ktasper.com\/images\/Apple-Devices-Preview.png"],"genre":"posts","keywords":"click, poetry","wordcount":645,"url":"https:\/\/blog.ktasper.com\/click_project_setup\/","datePublished":"2022-08-02T10:19:32+01:00","dateModified":"2022-08-02T10:19:32+01:00","license":"This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher":{"@type":"Organization","name":"xxxx","logo":"https:\/\/blog.ktasper.com\/images\/avatar.png"},"author":{"@type":"Person","name":"Ktasper"},"description":""}</script></head>
@@ -33,7 +33,7 @@ After lots of playing around with python dependency management, cli library&rsqu
 <a href=/ title="Ktasper Tech"><span class=header-title-pre><i class="fas fa-laptop"></i></span><span id=desktop-header-typeit class=typeit></span></a>
 </div>
 <div class=menu>
-<div class=menu-inner><a class=menu-item href=/posts/> Posts </a><a class=menu-item href=/tags/> Tags </a><a class=menu-item href=/categories/> Categories </a><a class=menu-item href=/series/> Series </a><a class=menu-item href=/about/> About </a><a class=menu-item href=https://github.com/ktasper title=GitHub rel="noopener noreffer" target=_blank><i class="fab fa-github fa-fw"></i> </a><span class="menu-item delimiter"></span><span class="menu-item search" id=search-desktop>
+<div class=menu-inner><a class=menu-item href=/posts/> Posts </a><a class=menu-item href=/tags/> Tags </a><a class=menu-item href=/categories/> Categories </a><a class=menu-item href=/series/> Series </a><a class=menu-item href=/library/> Library </a><a class=menu-item href=/about/> About </a><a class=menu-item href=https://github.com/ktasper title=GitHub rel="noopener noreffer" target=_blank><i class="fab fa-github fa-fw"></i> </a><span class="menu-item delimiter"></span><span class="menu-item search" id=search-desktop>
 <input type=text placeholder="Search titles or contents..." id=search-input-desktop>
 <a href=# onclick=return!1 class="search-button search-toggle" id=search-toggle-desktop title=Search>
 <i class="fas fa-search fa-fw"></i>
@@ -75,7 +75,7 @@ After lots of playing around with python dependency management, cli library&rsqu
 <a href=# onclick=return!1 class=search-cancel id=search-cancel-mobile>
 Cancel
 </a>
-</div><a class=menu-item href=/posts/ title>Posts</a><a class=menu-item href=/tags/ title>Tags</a><a class=menu-item href=/categories/ title>Categories</a><a class=menu-item href=/series/ title>Series</a><a class=menu-item href=/about/ title>About</a><a class=menu-item href=https://github.com/ktasper title=GitHub rel="noopener noreffer" target=_blank><i class="fab fa-github fa-fw"></i></a><a href=# onclick=return!1 class="menu-item theme-switch" title="Switch Theme">
+</div><a class=menu-item href=/posts/ title>Posts</a><a class=menu-item href=/tags/ title>Tags</a><a class=menu-item href=/categories/ title>Categories</a><a class=menu-item href=/series/ title>Series</a><a class=menu-item href=/library/ title>Library</a><a class=menu-item href=/about/ title>About</a><a class=menu-item href=https://github.com/ktasper title=GitHub rel="noopener noreffer" target=_blank><i class="fab fa-github fa-fw"></i></a><a href=# onclick=return!1 class="menu-item theme-switch" title="Switch Theme">
 <i class="fas fa-adjust fa-fw"></i>
 </a></div>
 </div>
@@ -463,7 +463,8 @@ poetry publish -r testpypi
 <span><a href=javascript:void(0); onclick=window.history.back()>Back</a></span>&nbsp;|&nbsp;<span><a href=/>Home</a></span>
 </section>
 </div>
-<div class=post-nav><a href=/hello-world/ class=prev rel=prev title="Hello World"><i class="fas fa-angle-left fa-fw"></i>Hello World</a></div>
+<div class=post-nav><a href=/hello-world/ class=prev rel=prev title="Hello World"><i class="fas fa-angle-left fa-fw"></i>Hello World</a>
+<a href=/flashing_wifi_plug/ class=next rel=next title="Flashing Tasmota On Smart Plugs Via Tuya-Convert">Flashing Tasmota On Smart Plugs Via Tuya-Convert<i class="fas fa-angle-right fa-fw"></i></a></div>
 </div>
 </article></div>
 </main><footer class=footer>
