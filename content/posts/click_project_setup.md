@@ -3,6 +3,7 @@ title: "How to Create a Python CLI Package In 2022"
 date: 2022-08-02T10:19:32+01:00
 draft: false
 tags: ["click", "poetry"]
+featuredImage: "images/pip_package/py.webp"
 ---
 
 As a DevOps Engineer, I like being able to create quick and simple CLI's to automate toil.
@@ -188,6 +189,7 @@ You can add `dist` to your `.gitignore` file
 # References
 - [How to create a Python package in 2022](https://mathspp.com/blog/how-to-create-a-python-package-in-2022) - Rodrigo Girão Serrão
 - [Build and Test a Command Line Interface with Python, Poetry, Click, and pytest ](https://dev.to/bowmanjd/build-a-command-line-interface-with-python-poetry-and-click-1f5k) - Jonathan Bowman
+- [Banner](https://dev.to/bowmanjd/python-module-vs-package-4m8e)
 
 
 ### Real Upload

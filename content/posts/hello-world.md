@@ -2,6 +2,7 @@
 title: "Hello World"
 date: 2022-04-22T20:05:43Z
 draft: false
+featuredImage: "images/hello.png"
 ---
 
 
@@ -42,3 +43,6 @@ int main() {
     return 0;
 }
 ```
+
+# References
+- [Banner](https://medium.com/appsflyerengineering/how-can-hello-world-program-effect-the-way-you-think-about-programing-3be5cefdaf8c)
