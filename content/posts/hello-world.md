@@ -45,4 +45,4 @@ int main() {
 ```
 
 # References
-- [Banner](https://medium.com/appsflyerengineering/how-can-hello-world-program-effect-the-way-you-think-about-programing-3be5cefdaf8c)
+- [Front Page Banner](https://medium.com/appsflyerengineering/how-can-hello-world-program-effect-the-way-you-think-about-programing-3be5cefdaf8c)

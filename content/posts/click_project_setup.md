@@ -186,12 +186,6 @@ You can add `dist` to your `.gitignore` file
 {{< /admonition >}}
 
 
-# References
-- [How to create a Python package in 2022](https://mathspp.com/blog/how-to-create-a-python-package-in-2022) - Rodrigo Girão Serrão
-- [Build and Test a Command Line Interface with Python, Poetry, Click, and pytest ](https://dev.to/bowmanjd/build-a-command-line-interface-with-python-poetry-and-click-1f5k) - Jonathan Bowman
-- [Banner](https://dev.to/bowmanjd/python-module-vs-package-4m8e)
-
-
 ### Real Upload
 
 - Configure PyPI
@@ -206,3 +200,8 @@ poetry config pypi-token.pypi <API KEY>
 poetry publish --build
 ```
 
+
+# References
+- [How to create a Python package in 2022](https://mathspp.com/blog/how-to-create-a-python-package-in-2022) - Rodrigo Girão Serrão
+- [Build and Test a Command Line Interface with Python, Poetry, Click, and pytest ](https://dev.to/bowmanjd/build-a-command-line-interface-with-python-poetry-and-click-1f5k) - Jonathan Bowman
+- [Front Page Banner](https://dev.to/bowmanjd/python-module-vs-package-4m8e)
