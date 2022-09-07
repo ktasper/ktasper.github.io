@@ -59,9 +59,9 @@ Back in the day we would use a `setup.py` file to do this, but again `poetry`
 does all the hard work for us. We need to add a `tool.poetry.scripts` setting to our
 `pyproject.toml`
 
-```
+```toml
 [tool.poetry.scripts]
-hello = "hello.main:cli"
+hello = "src.hello.main:cli"
 ```
 - `hello` = The name of the cli when we run it.
 - `src.hello.` = The name of the package
@@ -71,75 +71,8 @@ hello = "hello.main:cli"
 ### Adding the code
 
 Since we do not have any of the code needed above, `poetry` cannot / will not run our cli. Lets fix that,
-add the following code to `src/hello/main.py`
-```python
-import click
-import logging
-
-LOGGING_LEVELS = {
-    0: logging.NOTSET,
-    1: logging.ERROR,
-    2: logging.WARN,
-    3: logging.INFO,
-    4: logging.DEBUG,
-}  #: a mapping of `verbose` option counts to logging levels
-
-
-# Create the config object
-class Config(object):
-    def __init__(self) -> None:
-        self.verbose: int = 0
-
-# Create the decorator to pass the config object down
-pass_config = click.make_pass_decorator(Config, ensure=True)
-
-
-@click.group()
-@click.option("--verbose", "-v", count=True, help="Enable verbose output, (up to -vvvv)")
-@pass_config
-def cli(config, verbose):
-    """Run the cli """
-    # Use the verbosity count to determine the logging level...
-    if verbose > 0:
-        logging.basicConfig(
-            level=LOGGING_LEVELS[verbose]
-            if verbose in LOGGING_LEVELS
-            else logging.DEBUG
-        )
-        click.echo(
-            click.style(
-                f"Verbose logging is enabled. "
-                f"(LEVEL={logging.getLogger().getEffectiveLevel()})",
-                fg="yellow",
-            )
-        )
-    config.verbose = verbose
-
-@cli.command()
-@click.option("--string", default="World", help="The name you wish to greet")
-@click.option("--repeat", default=1, help="The times you wish to say the greeting")
-@click.argument('out', type=click.File('w'), default='-', required=False)
-@pass_config
-def say(config, string, repeat, out):
-    """
-    This greets you.
-    Args:
-    out - This defaults to STDOUT, if given a file will write the greeting to
-    that file instead
-    """
-    if config.verbose in range(1, 5):
-        click.echo("ERROR LEVEL")
-    if config.verbose in range(2, 5):
-        click.echo("WARN LEVEL")
-    if config.verbose == 4:
-        click.echo("DEBUG LEVEL")
-    for _ in range(repeat):
-        click.echo(f"Hello {string}!", file=out)
-
-if __name__ == '__main__':
-    cli()
-```
-
+add the following code to `src/hello/main.py` [Here is the link to the Gist](https://gist.github.com/ktasper/cef6637cd371e8ec1ee7b1b8bc41120d)
+ 
 ## Running the script
 
 Now if we run `poetry run hello` we should see this:
@@ -183,7 +116,7 @@ git push -u origin main
 Add it as a dependency:
 
 ```bash
-poetry add pre-commit
+poetry add pre-commit pylint
 ```
 
 Don't forget to update git!
@@ -197,10 +130,6 @@ This is my basic `.pre-commit-config.yaml` file:
 
 ```yaml
 repos:
-    - repo: https://github.com/psf/black
-      rev: 19.10b0
-      hooks:
-        - id: black
     - repo: https://github.com/pre-commit/pre-commit-hooks
       rev: v2.5.0
       hooks:
