@@ -24,7 +24,7 @@ After lots of playing around with python dependency management, cli library&rsqu
 <link rel=icon type=image/png sizes=16x16 href=/favicon-16x16.png><link rel=apple-touch-icon sizes=180x180 href=/apple-touch-icon.png><link rel=mask-icon href=/safari-pinned-tab.svg color=#5bbad5><link rel=manifest href=/site.webmanifest><link rel=canonical href=https://blog.ktasper.com/click_project_setup/><link rel=prev href=https://blog.ktasper.com/hello-world/><link rel=next href=https://blog.ktasper.com/flashing_wifi_plug/><link rel=stylesheet href=/lib/normalize/normalize.min.css><link rel=stylesheet href=/css/style.min.css><link rel=preload as=style onload="this.onload=null,this.rel='stylesheet'" href=/lib/fontawesome-free/all.min.css>
 <noscript><link rel=stylesheet href=/lib/fontawesome-free/all.min.css></noscript><link rel=preload as=style onload="this.onload=null,this.rel='stylesheet'" href=/lib/animate/animate.min.css>
 <noscript><link rel=stylesheet href=/lib/animate/animate.min.css></noscript>
-<script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"How to Create a Python CLI Package In 2022","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/blog.ktasper.com\/click_project_setup\/"},"image":["https:\/\/blog.ktasper.com\/images\/Apple-Devices-Preview.png"],"genre":"posts","keywords":"click, poetry","wordcount":646,"url":"https:\/\/blog.ktasper.com\/click_project_setup\/","datePublished":"2022-08-02T10:19:32+01:00","dateModified":"2022-08-02T10:19:32+01:00","license":"This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher":{"@type":"Organization","name":"xxxx","logo":"https:\/\/blog.ktasper.com\/images\/avatar.png"},"author":{"@type":"Person","name":"Ktasper"},"description":""}</script></head>
+<script type=application/ld+json>{"@context":"http://schema.org","@type":"BlogPosting","headline":"How to Create a Python CLI Package In 2022","inLanguage":"en","mainEntityOfPage":{"@type":"WebPage","@id":"https:\/\/blog.ktasper.com\/click_project_setup\/"},"image":["https:\/\/blog.ktasper.com\/images\/Apple-Devices-Preview.png"],"genre":"posts","keywords":"click, poetry","wordcount":648,"url":"https:\/\/blog.ktasper.com\/click_project_setup\/","datePublished":"2022-08-02T10:19:32+01:00","dateModified":"2022-08-02T10:19:32+01:00","license":"This work is licensed under a Creative Commons Attribution-NonCommercial 4.0 International License.","publisher":{"@type":"Organization","name":"xxxx","logo":"https:\/\/blog.ktasper.com\/images\/avatar.png"},"author":{"@type":"Person","name":"Ktasper"},"description":""}</script></head>
 <body header-desktop=auto header-mobile=auto><script type=text/javascript>function setTheme(a){document.body.setAttribute('theme',a),document.documentElement.style.setProperty('color-scheme',a==='light'?'light':'dark')}function saveTheme(a){window.localStorage&&localStorage.setItem('theme',a)}function getMeta(b){const a=document.getElementsByTagName('meta');for(let c=0;c<a.length;c++)if(a[c].getAttribute('name')===b)return a[c];return''}if(window.localStorage&&localStorage.getItem('theme')){let a=localStorage.getItem('theme');a==='light'||a==='dark'||a==='black'?setTheme(a):window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?setTheme('dark'):setTheme('light')}else'black'==='light'||'black'==='dark'||'black'==='black'?(setTheme('black'),saveTheme('black')):(saveTheme('auto'),window.matchMedia&&window.matchMedia('(prefers-color-scheme: dark)').matches?setTheme('dark'):setTheme('light'));let metaColors={light:'#f8f8f8',dark:'#252627',black:'#000000'};getMeta('theme-color').content=metaColors[document.body.getAttribute('theme')]</script>
 <div id=back-to-top></div>
 <div id=mask></div><div class=wrapper><header class=desktop id=header-desktop>
@@ -108,12 +108,6 @@ Cancel
 <li><a href=#uploading-the-package>Uploading the package</a>
 <ul>
 <li><a href=#testing-upload>Testing Upload</a></li>
-</ul>
-</li>
-</ul>
-<ul>
-<li>
-<ul>
 <li><a href=#real-upload>Real Upload</a></li>
 </ul>
 </li>
@@ -123,7 +117,7 @@ Cancel
 <div class=post-meta-line>
 <span class=post-author><i class="author fas fa-user-circle fa-fw"></i><a href=https://github.com/ktasper title=Author target=_blank rel="noopener noreffer author" class=author>Ktasper</a>
 </span></div>
-<div class=post-meta-line><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime=02-08-2022>02-08-2022</time>&nbsp;<i class="far fa-edit fa-fw"></i>&nbsp;<time datetime=02-08-2022>02-08-2022</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;646 words&nbsp;
+<div class=post-meta-line><i class="far fa-calendar-alt fa-fw"></i>&nbsp;<time datetime=02-08-2022>02-08-2022</time>&nbsp;<i class="far fa-edit fa-fw"></i>&nbsp;<time datetime=02-08-2022>02-08-2022</time>&nbsp;<i class="fas fa-pencil-alt fa-fw"></i>&nbsp;648 words&nbsp;
 <i class="far fa-clock fa-fw"></i>&nbsp;4 minutes&nbsp;</div>
 </div><div class=featured-image><img class=lazyload data-src=images/pip_package/py.webp data-srcset="/images/pip_package/py.webp, images/pip_package/py.webp 1.5x, /images/pip_package/py.webp 2x" data-sizes=auto alt=/images/pip_package/py.webp title=/images/pip_package/py.webp height=auto width=auto></div><div class="details toc" id=toc-static kept>
 <div class="details-summary toc-title">
@@ -149,12 +143,6 @@ Cancel
 <li><a href=#uploading-the-package>Uploading the package</a>
 <ul>
 <li><a href=#testing-upload>Testing Upload</a></li>
-</ul>
-</li>
-</ul>
-<ul>
-<li>
-<ul>
 <li><a href=#real-upload>Real Upload</a></li>
 </ul>
 </li>
@@ -414,12 +402,6 @@ poetry publish -r testpypi
 <div class=admonition-content>You can add <code>dist</code> to your <code>.gitignore</code> file</div>
 </div>
 </div>
-<h1 id=references class=headerLink>
-<a href=#references class=header-mark></a>References</h1><ul>
-<li><a href=https://mathspp.com/blog/how-to-create-a-python-package-in-2022 target=_blank rel="noopener noreffer">How to create a Python package in 2022</a> - Rodrigo Girão Serrão</li>
-<li><a href=https://dev.to/bowmanjd/build-a-command-line-interface-with-python-poetry-and-click-1f5k target=_blank rel="noopener noreffer">Build and Test a Command Line Interface with Python, Poetry, Click, and pytest </a> - Jonathan Bowman</li>
-<li><a href=https://dev.to/bowmanjd/python-module-vs-package-4m8e target=_blank rel="noopener noreffer">Banner</a></li>
-</ul>
 <h3 id=real-upload class=headerLink>
 <a href=#real-upload class=header-mark></a>Real Upload</h3><ul>
 <li>Configure PyPI</li>
@@ -441,7 +423,13 @@ poetry publish -r testpypi
 <pre tabindex=0 class=chroma><code class=language-fallback data-lang=fallback>poetry publish --build
 </code></pre></td></tr></table>
 </div>
-</div></div>
+</div><h1 id=references class=headerLink>
+<a href=#references class=header-mark></a>References</h1><ul>
+<li><a href=https://mathspp.com/blog/how-to-create-a-python-package-in-2022 target=_blank rel="noopener noreffer">How to create a Python package in 2022</a> - Rodrigo Girão Serrão</li>
+<li><a href=https://dev.to/bowmanjd/build-a-command-line-interface-with-python-poetry-and-click-1f5k target=_blank rel="noopener noreffer">Build and Test a Command Line Interface with Python, Poetry, Click, and pytest </a> - Jonathan Bowman</li>
+<li><a href=https://dev.to/bowmanjd/python-module-vs-package-4m8e target=_blank rel="noopener noreffer">Front Page Banner</a></li>
+</ul>
+</div>
 <div class=post-footer id=post-footer>
 <div class=post-info>
 <div class=post-info-line>

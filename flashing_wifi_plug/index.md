@@ -207,4 +207,4 @@ Top Tip: Create a static IP reservation on your router!
 - [Sam on Amazon](https://www.amazon.co.uk/gp/customer-reviews/R1R3W3SS4GUDEY?ref=pf_vv_at_pdctrvw_srp)
 - [Tasmota Info on Tuya](https://tasmota.github.io/docs/Tuya-Convert/)
 - [Github guide on Tuya-Convert](https://github.com/ct-Open-Source/tuya-convert)
-- [Front Page Picture](https://www.dsbd.tech/blogs/press-release-ten-companies-will-test-next-generation-cybersecurity-technologies-from-the-university-of-cambridge-and-arm/)
+- [Front Page Banner](https://www.dsbd.tech/blogs/press-release-ten-companies-will-test-next-generation-cybersecurity-technologies-from-the-university-of-cambridge-and-arm/)
