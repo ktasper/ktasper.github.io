@@ -209,6 +209,10 @@ Top Tip: Create a static IP reservation on your router!
 - I went to `Firmware upgrade` and did an `OTA` Upgrade.
 
 
+- Next I had to setup my plug. In the Web UI I had to go to `Configuration` -> `Configure Module` -> `Gosund SP1 v23 (55)`
+
+
+
 # References
 - [Sam on Amazon](https://www.amazon.co.uk/gp/customer-reviews/R1R3W3SS4GUDEY?ref=pf_vv_at_pdctrvw_srp)
 - [Tasmota Info on Tuya](https://tasmota.github.io/docs/Tuya-Convert/)
